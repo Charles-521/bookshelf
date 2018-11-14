@@ -12,6 +12,39 @@ import com.util.DBconn;
 
 public class BookDaoImpl implements BookDao {
 	@Override
+	public boolean checkout(String bookIDs) throws SQLException {
+		boolean flag = false;
+		Connection conn = null;
+		String[] ids = bookIDs.split(",");
+		String sql = "update book set state = 1 where id=?";
+	
+		try {
+			conn = DBconn.getConnection();
+			conn.setAutoCommit(false);
+			ArrayList<PreparedStatement> stms = new ArrayList<PreparedStatement>();
+			for (int i=0;  i<ids.length; i++) {
+				PreparedStatement ps =  conn.prepareStatement(sql);
+				ps.setInt(1, Integer.parseInt(ids[i]));
+				stms.add(ps);
+			}
+			for (PreparedStatement s : stms) {
+				s.executeUpdate();
+			}
+			
+			conn.commit();
+			flag = true;
+		}catch (SQLException e) {
+			conn.rollback();
+			System.out.println("add book error");
+			e.printStackTrace();
+		}finally {
+			conn.close();
+    	}
+		return flag;
+	}
+	
+	
+	@Override
 	public boolean addBook(BookBean bookBean) {
 		// TODO Auto-generated method stub
 		boolean flag = false;
@@ -31,7 +64,7 @@ public class BookDaoImpl implements BookDao {
 			ps.setString(8, bookBean.getDescription());
 			int i =  ps.executeUpdate();
 			if(i>0){
-				//²Ù×÷µÄÌõÊý´óÓÚ0
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0
 				flag = true;
 			}
 		}catch (SQLException e) {
@@ -42,7 +75,53 @@ public class BookDaoImpl implements BookDao {
     	}
 		return flag;
 	}
-
+	@Override
+	public boolean addLikeBook(int userID, int bookID) {
+		boolean flag = false;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		String sql = "insert into likebook(bookID, userID)values(?,?)";
+		try {
+			conn = DBconn.getConnection();
+			ps =  conn.prepareStatement(sql);
+			ps.setInt(1, bookID);
+			ps.setInt(2, userID);
+			int i =  ps.executeUpdate();
+			if(i>0){
+				flag = true;
+			}
+		}catch (SQLException e) {
+			System.out.println("add liked book error");
+			e.printStackTrace();
+		}finally {
+    		DBconn.close(null, ps, conn);
+    	}
+		return flag;
+	}
+	@Override
+	public boolean addCartBook(int userID, int bookID) {
+		boolean flag = false;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		String sql = "insert into cart(bookID, userID)values(?,?)";
+		try {
+			conn = DBconn.getConnection();
+			ps =  conn.prepareStatement(sql);
+			ps.setInt(1, bookID);
+			ps.setInt(2, userID);
+			int i =  ps.executeUpdate();
+			if(i>0){
+				flag = true;
+			}
+		}catch (SQLException e) {
+			System.out.println("add liked book error");
+			e.printStackTrace();
+		}finally {
+    		DBconn.close(null, ps, conn);
+    	}
+		return flag;
+	}
+	
 	/*@Override
 	public List<BookBean> findBookByName(String name) {
 		List<BookBean> list = new ArrayList<BookBean>();
@@ -52,7 +131,7 @@ public class BookDaoImpl implements BookDao {
         try {
         	conn = DBconn.getConnection();
         	//ps = conn.prepareStatement("select * from book where name=?");
-        	//ÊµÏÖÊý¾Ý¿âÄ£ºý²éÑ¯
+        	//Êµï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½Ä£ï¿½ï¿½ï¿½ï¿½Ñ¯
         	ps = conn.prepareStatement("select * from book where name like ? and state = 0");
         	ps.setString(1, "%" + name + "%");
             rs=ps.executeQuery();
@@ -86,7 +165,7 @@ public class BookDaoImpl implements BookDao {
         try {
         	conn = DBconn.getConnection();
         	//ps = conn.prepareStatement("select * from book where ISBN=?");
-        	//ÊµÏÖÊý¾Ý¿âÄ£ºý²éÑ¯
+        	//Êµï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½Ä£ï¿½ï¿½ï¿½ï¿½Ñ¯
         	ps = conn.prepareStatement("select * from book where ISBN like ?");
         	ps.setString(1, "%" + ISPN + "%");
             rs=ps.executeQuery();
@@ -120,7 +199,7 @@ public class BookDaoImpl implements BookDao {
         try {
         	conn = DBconn.getConnection();
         	//ps = conn.prepareStatement("select * from book where coursecode=?");
-        	//ÊµÏÖÊý¾Ý¿âÄ£ºý²éÑ¯
+        	//Êµï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½Ä£ï¿½ï¿½ï¿½ï¿½Ñ¯
         	ps = conn.prepareStatement("select * from book where coursecode like ?");
         	ps.setString(1, "%" + courseCode + "%");
             rs=ps.executeQuery();
@@ -144,6 +223,38 @@ public class BookDaoImpl implements BookDao {
 		return null;
 	}
 */
+	@Override
+	public List<BookBean> findCartBookByUserID(int userID) {
+		List<BookBean> list = new ArrayList<BookBean>();
+		Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+        	conn = DBconn.getConnection();
+        	ps = conn.prepareStatement("select B.* from book B, userinfo U, cart C where C.bookID = B.id and C.userID = U.id and U.id = ? and B.state = 0");
+        	ps.setInt(1, userID);
+            rs=ps.executeQuery();
+            while(rs.next()) {
+            	BookBean book = new BookBean();
+            	book.setId(rs.getInt("id"));
+            	book.setName(rs.getString("name"));
+            	book.setPrice(rs.getFloat("price"));
+            	//book.setState(rs.getInt("state"));
+            	book.setISBN(rs.getString("ISBN"));
+            	book.setCourseCode(rs.getString("coursecode"));
+            	book.setPicturePath(rs.getString("picturepath"));
+            	book.setFilename(rs.getString("filename"));
+            	list.add(book);
+            }
+            return list;
+        }catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+    		DBconn.close(rs, ps, conn);
+    	}
+		return null;
+	}
+
 	@Override
 	public List<BookBean> findLikeBookByUserID(int userID) {
 		List<BookBean> list = new ArrayList<BookBean>();

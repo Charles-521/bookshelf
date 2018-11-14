@@ -61,13 +61,16 @@
 						</ul>
 						<p><span>Description</span> :  <%=book.getDescription() %></p>
 						<div class="card_area">
-							<a class="main_btn" href="#">Add to Cart</a>
+							<form class="row tracking_form" method="post" enctype="multipart/form-data" action="AddCartServlet?bookID=<%=book.getId() %>&url=single-product.jsp?id=<%=book.getId()%>" novalidate="novalidate">
+								<input class="main_btn" type="submit" value="Add to Cart" />
+							</form>
 	<!-- 						<a class="icon_btn" href="#">
 								<i class="lnr lnr lnr-diamond"></i>
 							</a> -->
-							<a class="icon_btn" href="#">
+							<!-- <input class="icon_ blnr lnr lnr-heart" type="submit" value="" /> -->
+							 <a class="icon_btn" href="AddLikeBooks?bookID=<%=book.getId()%>&url=single-product.jsp?id=<%=book.getId()%>">
 								<i class="lnr lnr lnr-heart"></i>
-							</a>
+							</a> 
 						</div>
 					</div>
 				</div>

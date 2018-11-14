@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="./common/header.jsp"%>
 <!DOCTYPE html>
 
@@ -12,8 +13,8 @@
 				<div class="banner_content text-center">
 					<h2>Shopping Cart</h2>
 					<div class="page_link">
-						<a href="index.html">Home</a>
-						<a href="cart.html">Cart</a>
+						<a href="index.jsp">Home</a>
+						<a href="showcart.html">Cart</a>
 					</div>
 				</div>
 			</div>
@@ -30,29 +31,31 @@
 						<thead>
 							<tr>
 								<th scope="col">Product</th>
-								<th scope="col">Price</th>
-								<th scope="col">Quantity</th>
-								<th scope="col">Total</th>
+								<th scope="col"></th>
+								<th scope="col"></th>
+								<th scope="col">Price ($)</th>
+								<!-- <th scope="col">Quantity</th> 
+								<th scope="col">Total</th>-->
 							</tr>
 						</thead>
 						<tbody>
+							<c:forEach items="${records}" var="b" varStatus="vs">
 							<tr>
 								<td>
 									<div class="media">
+									 	<input type="hidden" name="bookID" value="${b.id}">
 										<div class="d-flex">
-											<img src="img/product/single-product/cart-1.jpg" alt="">
+											<img src="${pageContext.request.contextPath}/images/${b.picturePath}/${b.filename}" alt="">
 										</div>
 										<div class="media-body">
-											<p>Minimalistic shop for multipurpose use</p>
+											<p>${b.name}</p>
 										</div>
 									</div>
 								</td>
-								<td>
-									<h5>$360.00</h5>
-								</td>
-								<td>
+								
+							<td>
 									<div class="product_count">
-										<input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
+										<!-- <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
 										<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
 										 class="increase items-count" type="button">
 											<i class="lnr lnr-chevron-up"></i>
@@ -60,76 +63,18 @@
 										<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
 										 class="reduced items-count" type="button">
 											<i class="lnr lnr-chevron-down"></i>
-										</button>
+										</button> -->
 									</div>
 								</td>
 								<td>
-									<h5>$720.00</h5>
+									<!-- <h5>$720.00</h5> -->
+								</td> 
+								<td>
+									<h5>${b.price}</h5>
 								</td>
 							</tr>
-							<tr>
-								<td>
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/single-product/cart-1.jpg" alt="">
-										</div>
-										<div class="media-body">
-											<p>Minimalistic shop for multipurpose use</p>
-										</div>
-									</div>
-								</td>
-								<td>
-									<h5>$360.00</h5>
-								</td>
-								<td>
-									<div class="product_count">
-										<input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-										<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-										 class="increase items-count" type="button">
-											<i class="lnr lnr-chevron-up"></i>
-										</button>
-										<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-										 class="reduced items-count" type="button">
-											<i class="lnr lnr-chevron-down"></i>
-										</button>
-									</div>
-								</td>
-								<td>
-									<h5>$720.00</h5>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/single-product/cart-1.jpg" alt="">
-										</div>
-										<div class="media-body">
-											<p>Minimalistic shop for multipurpose use</p>
-										</div>
-									</div>
-								</td>
-								<td>
-									<h5>$360.00</h5>
-								</td>
-								<td>
-									<div class="product_count">
-										<input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-										<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-										 class="increase items-count" type="button">
-											<i class="lnr lnr-chevron-up"></i>
-										</button>
-										<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-										 class="reduced items-count" type="button">
-											<i class="lnr lnr-chevron-down"></i>
-										</button>
-									</div>
-								</td>
-								<td>
-									<h5>$720.00</h5>
-								</td>
-							</tr>
-							<tr class="bottom_button">
+							</c:forEach>
+<!-- 							<tr class="bottom_button">
 								<td>
 									<a class="gray_btn" href="#">Update Cart</a>
 								</td>
@@ -146,7 +91,7 @@
 										<a class="gray_btn" href="#">Close Coupon</a>
 									</div>
 								</td>
-							</tr>
+							</tr> -->
 							<tr>
 								<td>
 
@@ -155,13 +100,13 @@
 
 								</td>
 								<td>
-									<h5>Subtotal</h5>
+									<h5>Total</h5>
 								</td>
 								<td>
-									<h5>$2160.00</h5>
+									<h5>${total}</h5>
 								</td>
 							</tr>
-							<tr class="shipping_area">
+	<!-- 						<tr class="shipping_area">
 								<td>
 
 								</td>
@@ -204,7 +149,7 @@
 										<a class="gray_btn" href="#">Update Details</a>
 									</div>
 								</td>
-							</tr>
+							</tr> -->
 							<tr class="out_button_area">
 								<td>
 
@@ -216,9 +161,12 @@
 
 								</td>
 								<td>
+
+								</td>
+								<td>
 									<div class="checkout_btn_inner">
-										<a class="gray_btn" href="#">Continue Shopping</a>
-										<a class="main_btn" href="#">Proceed to checkout</a>
+										<!-- <a class="gray_btn" href="#"> Continue Shopping</a> -->
+										<a id="checkoutBtn" class="main_btn" href="#">Proceed to checkout</a>
 									</div>
 								</td>
 							</tr>
@@ -247,7 +195,7 @@
 						<form target="_blank" novalidate action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&id=92a4423d01"
 						 method="get" class="subscription relative">
 							<input type="email" name="EMAIL" placeholder="Email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email address'"
-							 required="">
+							 required>
 							<!-- <div style="position: absolute; left: -5000px;">
 									<input type="text" name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="">
 								</div> -->
@@ -280,7 +228,7 @@
 							 method="get" class="subscribe_form relative">
 								<div class="input-group d-flex flex-row">
 									<input name="EMAIL" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '"
-									 required="" type="email">
+									 required type="email">
 									<button class="btn sub-btn">
 										<span class="lnr lnr-arrow-right"></span>
 									</button>
@@ -337,7 +285,7 @@
 							</a>
 							<a href="#">
 								<i class="fa fa-behance"></i>
-							</a>
+						    </a>
 						</div>
 					</div>
 				</div>
@@ -372,6 +320,33 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="vendors/counter-up/jquery.waypoints.min.js"></script>
 	<script src="vendors/counter-up/jquery.counterup.js"></script>
 	<script src="js/theme.js"></script>
+	<script type="text/javascript" >
+   /* 	/servlet/Test2 */
+   $("#checkoutBtn").on("click", function(){
+	  	var ele = $("input[name*='bookID']");
+	  	if (ele.length <= 0) return;
+	  	var ids = "";
+	  	for (i = 0; i < ele.length; i++){
+	  		ids =  ids + "," + ele[i].value;
+	  	}
+	  	ids = ids.substr(1);
+   		$.ajax({
+		    url:'CheckoutServlet',
+		    type:'POST', 
+		    async:true,    
+		    data:{
+		        bookIds: ids
+		    },
+		    dataType:'text',    
+		    success:function(data){
+		    	if(data == "0")
+		    		window.location.href = "showcart.jsp"	    		
+		    	else
+		    		alert("Checkout failed");
+		    }
+	   	});
+   })
+   	</script>
 </body>
 
 </html>

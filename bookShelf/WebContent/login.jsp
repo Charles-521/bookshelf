@@ -91,7 +91,7 @@
 											
 										</ul>
 										</li>
-										<li class="nav-item submenu dropdown">
+						<!-- 				<li class="nav-item submenu dropdown">
 											<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
 											<ul class="dropdown-menu">
 												<li class="nav-item">
@@ -101,12 +101,12 @@
 													<a class="nav-link" href="single-blog.html">Blog Details</a>
 												</li>
 											</ul>
-										</li>
+										</li> -->
 										<li class="nav-item submenu dropdown">
-											<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cart</a>
+											<a href="showcart.jsp" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cart</a>
 											<ul class="dropdown-menu">
 												<li class="nav-item">
-													<a class="nav-link" href="cart.jsp">View Cart</a>
+													<a class="nav-link" href="showcart.jsp">View Cart</a>
 													<li class="nav-item">
 													
 											</ul>

@@ -102,7 +102,7 @@
 										<a class="nav-link" href="index.jsp">Home</a>
 									</li>
 									<li class="nav-item submenu dropdown">
-										<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Book</a>
+										<a href="showallbook.jsp" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Book</a>
 										<ul class="dropdown-menu">
 											<li class="nav-item">
 												<a class="nav-link" href="showallbook.jsp">View Book</a>
@@ -113,7 +113,7 @@
 											
 										</ul>
 										</li>
-										<li class="nav-item submenu dropdown">
+										<!-- <li class="nav-item submenu dropdown">
 											<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
 											<ul class="dropdown-menu">
 												<li class="nav-item">
@@ -123,12 +123,12 @@
 													<a class="nav-link" href="single-blog.html">Blog Details</a>
 												</li>
 											</ul>
-										</li>
+										</li> -->
 										<li class="nav-item submenu dropdown">
-											<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cart</a>
+											<a href="showcart.jsp" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cart</a>
 											<ul class="dropdown-menu">
 												<li class="nav-item">
-													<a class="nav-link" href="cart.jsp">View Cart</a>
+													<a class="nav-link" href="showcart.jsp">View Cart</a>
 													<li class="nav-item">
 													
 											</ul>
@@ -169,7 +169,7 @@
 									<hr>
 
 									<li class="nav-item">
-										<a href="#" class="icons">
+										<a href="showcart.jsp" class="icons">
 											<i class="lnr lnr lnr-cart"></i>
 										</a>
 									</li>

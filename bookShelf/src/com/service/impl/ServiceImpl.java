@@ -62,5 +62,22 @@ public class ServiceImpl implements Service {
 		page.setRecords(records);
 		return page;
 	}
+	@Override
+	public List<BookBean> findBookCartByUserID(int userID) {
+		List<BookBean> records = bookDao.findCartBookByUserID(userID);
+		
+		return records;
+	}
+	
+	@Override
+	public boolean addLikeBook(int userID, int bookID) {
+		return bookDao.addLikeBook(userID, bookID);
+		
+	}
+	
+	@Override
+	public boolean addCartBook(int userID, int bookID) {
+		return bookDao.addCartBook(userID, bookID);
+	}
 
 }

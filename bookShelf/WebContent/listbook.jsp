@@ -84,10 +84,10 @@
 								<div class="f_p_img">
 									<a href="single-product.jsp?id=${b.id}"><img class="img-fluid" src="${pageContext.request.contextPath}/images/${b.picturePath}/${b.filename}"  style="width:450px;height:300px;"></a>
 									<div class="p_icon">
-										<a href="#">
+										<a href="AddLikeBooks?bookID=${b.id}&url=showallbook.jsp">
 											<i class="lnr lnr-heart"></i>
 										</a>
-										<a href="#">
+										<a href="AddCartServlet?bookID=${b.id}&url=showallbook.jsp">
 											<i class="lnr lnr-cart"></i>
 										</a>
 									</div>
