@@ -126,12 +126,12 @@
 										</li> -->
 										<li class="nav-item submenu dropdown">
 											<a href="showcart.jsp" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cart</a>
-											<ul class="dropdown-menu">
+											<!-- <ul class="dropdown-menu">
 												<li class="nav-item">
 													<a class="nav-link" href="showcart.jsp">View Cart</a>
 													<li class="nav-item">
 													
-											</ul>
+											</ul> -->
 											</li>
 											
 								</ul>
@@ -160,7 +160,7 @@
 									<hr>
 
 									<li class="nav-item">
-										<a href="#" class="icons">
+										<a href="showfavorite.jsp" class="icons">
 											<!-- <i class="fa fa-heart-o" aria-hidden="true"></i> -->
 											<i class="lnr lnr lnr-heart" aria-hidden="true"></i>
 										</a>

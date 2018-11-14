@@ -23,6 +23,18 @@ public class ServiceImpl implements Service {
 		page.setRecords(records);
 		return page;
 	}
+	@Override	
+	public Page findFavoriteBooks(String num, int userID) {
+		int pageNum = 1;
+		if(num!=null&&!num.equals("")){
+			pageNum = Integer.parseInt(num);
+		}
+		int totalRecordsNum = bookDao.getTotalLikeRecordsNum(userID);
+		Page page = new Page(pageNum, totalRecordsNum);
+		List<BookBean> records = bookDao.findLikePageRecords(page.getStartIndex(),page.getPageSize(), userID);
+		page.setRecords(records);
+		return page;
+	}
 /*	@Override
 	public Page findBookPageRecordsByKeyWords(String keyWords) {
 		int pageNum = 1;
@@ -71,7 +83,12 @@ public class ServiceImpl implements Service {
 	
 	@Override
 	public boolean addLikeBook(int userID, int bookID) {
-		return bookDao.addLikeBook(userID, bookID);
+		return bookDao.addLikeBook(userID, bookID);		
+	}
+	
+	@Override
+	public boolean removeLikeBook(int userID, int bookID) {
+		return bookDao.removeLikeBook(userID, bookID);
 		
 	}
 	

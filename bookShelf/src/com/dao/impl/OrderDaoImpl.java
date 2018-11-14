@@ -35,7 +35,6 @@ public class OrderDaoImpl implements OrderDao {
 			ps.setString(3, currentTime);
 			int i =  ps.executeUpdate();
 			if(i>0){
-				//操作的条数大于0
 				flag = true;
 			}
 		}catch (SQLException e) {

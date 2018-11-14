@@ -1,182 +1,84 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="./common/header.jsp"%>
+    <%@include file="./common/header.jsp"%>
 <!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
 
-<html lang="en">
+
+<head>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
 <body>
 	<!--================Home Banner Area =================-->
 	<section class="banner_area">
 		<div class="banner_inner d-flex align-items-center">
 			<div class="container">
 				<div class="banner_content text-center">
-					<h2>Shopping Cart</h2>
-					<div class="page_link">
-						<a href="index.jsp">Home</a>
-						<a href="showcart.html">Cart</a>
-					</div>
+					
 				</div>
 			</div>
 		</div>
 	</section>
 	<!--================End Home Banner Area =================-->
-	
-	<!--================Cart Area =================-->
-	<section class="cart_area">
-		<div class="container">
-			<div class="cart_inner">
-				<div class="table-responsive">
-					<table class="table">
-						<thead>
-							<tr>
-								<th scope="col">Product</th>
-								<th scope="col"></th>
-								<th scope="col"></th>
-								<th scope="col">Price ($)</th>
-								<!-- <th scope="col">Quantity</th> 
-								<th scope="col">Total</th>-->
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${records}" var="b" varStatus="vs">
-							<tr>
-								<td>
-									<div class="media">
-									 	<input type="hidden" name="bookID" value="${b.id}">
-										<div class="d-flex">
-											<img src="${pageContext.request.contextPath}/images/${b.picturePath}/${b.filename}" alt="">
-										</div>
-										<div class="media-body">
-											<p>${b.name}</p>
-										</div>
+
+	<!--================Category Product Area =================-->
+	<section class="cat_product_area section_gap">
+		<div class="container-fluid">
+			<div class="row flex-row-reverse">
+				<div class="col-lg-12">
+					<div class="product_top_bar">
+						<div style="">
+						    <form class="bs-example bs-example-form" role="form" action="FindBookPages" method="get">
+								 <div class="row">
+								            
+								 </div>
+						    </form>
+						</div>
+					</div>
+					<div class="latest_product_inner row">					
+					<c:forEach items="${page.records}" var="b" varStatus="vs">	
+						<div class="col-lg-3 col-md-3 col-sm-6">
+							<div class="f_p_item">
+								<div class="f_p_img">
+									<a href="single-product.jsp?id=${b.id}"><img class="img-fluid" src="${pageContext.request.contextPath}/images/${b.picturePath}/${b.filename}"  style="width:450px;height:300px;"></a>
+									<div class="p_icon">
+										<a href="RemoveLikeBooks?bookID=${b.id}&url=showfavorite.jsp">
+											<i class="lnr lnr-trash"></i>
+										</a>
+										<a href="AddCartServlet?bookID=${b.id}&url=showfavorite.jsp">
+											<i class="lnr lnr-cart"></i>
+										</a>
 									</div>
-								</td>
-								
-							<td>
-									<div class="product_count">
-										<!-- <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-										<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-										 class="increase items-count" type="button">
-											<i class="lnr lnr-chevron-up"></i>
-										</button>
-										<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-										 class="reduced items-count" type="button">
-											<i class="lnr lnr-chevron-down"></i>
-										</button> -->
-									</div>
-								</td>
-								<td>
-									<!-- <h5>$720.00</h5> -->
-								</td> 
-								<td>
-									<h5>${b.price}</h5>
-								</td>
-							</tr>
-							</c:forEach>
-<!-- 							<tr class="bottom_button">
-								<td>
-									<a class="gray_btn" href="#">Update Cart</a>
-								</td>
-								<td>
-
-								</td>
-								<td>
-
-								</td>
-								<td>
-									<div class="cupon_text">
-										<input type="text" placeholder="Coupon Code">
-										<a class="main_btn" href="#">Apply</a>
-										<a class="gray_btn" href="#">Close Coupon</a>
-									</div>
-								</td>
-							</tr> -->
-							<tr>
-								<td>
-
-								</td>
-								<td>
-
-								</td>
-								<td>
-									<h5>Total</h5>
-								</td>
-								<td>
-									<h5>${total}</h5>
-								</td>
-							</tr>
-	<!-- 						<tr class="shipping_area">
-								<td>
-
-								</td>
-								<td>
-
-								</td>
-								<td>
-									<h5>Shipping</h5>
-								</td>
-								<td>
-									<div class="shipping_box">
-										<ul class="list">
-											<li>
-												<a href="#">Flat Rate: $5.00</a>
-											</li>
-											<li>
-												<a href="#">Free Shipping</a>
-											</li>
-											<li>
-												<a href="#">Flat Rate: $10.00</a>
-											</li>
-											<li class="active">
-												<a href="#">Local Delivery: $2.00</a>
-											</li>
-										</ul>
-										<h6>Calculate Shipping
-											<i class="fa fa-caret-down" aria-hidden="true"></i>
-										</h6>
-										<select class="shipping_select">
-											<option value="1">Bangladesh</option>
-											<option value="2">India</option>
-											<option value="4">Pakistan</option>
-										</select>
-										<select class="shipping_select">
-											<option value="1">Select a State</option>
-											<option value="2">Select a State</option>
-											<option value="4">Select a State</option>
-										</select>
-										<input type="text" placeholder="Postcode/Zipcode">
-										<a class="gray_btn" href="#">Update Details</a>
-									</div>
-								</td>
-							</tr> -->
-							<tr class="out_button_area">
-								<td>
-
-								</td>
-								<td>
-
-								</td>
-								<td>
-
-								</td>
-								<td>
-
-								</td>
-								<td>
-									<div class="checkout_btn_inner">
-										<!-- <a class="gray_btn" href="#"> Continue Shopping</a> -->
-										<a id="checkoutBtn" class="main_btn" href="#">Proceed to checkout</a>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+								</div>
+								<a href="single-product.jsp?id=${b.id}">
+									<h4>${b.name}</h4>
+								</a>
+								<h5>$${b.price}</h5>
+							</div>
+						</div>
+					</c:forEach> 
+					</div>
+					<div class="product_top_bar">
+						<div class="right_page ml-auto" >	
+							<ul class="pager">
+							<li><a href="${pageContext.request.contextPath}${page.url}?num=${page.prePageNum}">Previous</a></li>
+							<li><a href="${pageContext.request.contextPath}${page.url}?num=${page.nextPageNum}">Next</a></li>
+							</ul>
+						</div> 
+					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	<!--================End Cart Area =================-->
+	<!--================End Category Product Area =================-->
 
 	<!--================ Subscription Area ================-->
 	<section class="subscription-area section_gap">
@@ -195,7 +97,7 @@
 						<form target="_blank" novalidate action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&id=92a4423d01"
 						 method="get" class="subscription relative">
 							<input type="email" name="EMAIL" placeholder="Email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email address'"
-							 required>
+							 required="">
 							<!-- <div style="position: absolute; left: -5000px;">
 									<input type="text" name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="">
 								</div> -->
@@ -228,7 +130,7 @@
 							 method="get" class="subscribe_form relative">
 								<div class="input-group d-flex flex-row">
 									<input name="EMAIL" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '"
-									 required type="email">
+									 required="" type="email">
 									<button class="btn sub-btn">
 										<span class="lnr lnr-arrow-right"></span>
 									</button>
@@ -285,7 +187,7 @@
 							</a>
 							<a href="#">
 								<i class="fa fa-behance"></i>
-						    </a>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -319,34 +221,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="vendors/jquery-ui/jquery-ui.js"></script>
 	<script src="vendors/counter-up/jquery.waypoints.min.js"></script>
 	<script src="vendors/counter-up/jquery.counterup.js"></script>
-	<script src="js/theme.js"></script>
-	<script type="text/javascript" >
-   /* 	/servlet/Test2 */
-   $("#checkoutBtn").on("click", function(){
-	  	var ele = $("input[name*='bookID']");
-	  	if (ele.length <= 0) return;
-	  	var ids = "";
-	  	for (i = 0; i < ele.length; i++){
-	  		ids =  ids + "," + ele[i].value;
-	  	}
-	  	ids = ids.substr(1);
-   		$.ajax({
-		    url:'CheckoutServlet',
-		    type:'POST', 
-		    async:true,    
-		    data:{
-		        bookIds: ids
-		    },
-		    dataType:'text',    
-		    success:function(data){
-		    	if(data == "0")
-		    		window.location.href = "showcart.jsp"	    		
-		    	else
-		    		alert("Checkout failed");
-		    }
-	   	});
-   })
-   	</script>
-</body>
 
+</body>
 </html>

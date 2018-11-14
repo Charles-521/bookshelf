@@ -75,7 +75,8 @@ public class BookDaoImpl implements BookDao {
     	}
 		return flag;
 	}
-	@Override
+	
+	@Override	
 	public boolean addLikeBook(int userID, int bookID) {
 		boolean flag = false;
 		Connection conn = null;
@@ -98,6 +99,31 @@ public class BookDaoImpl implements BookDao {
     	}
 		return flag;
 	}
+	
+	@Override	
+	public boolean removeLikeBook(int userID, int bookID) {
+		boolean flag = false;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		String sql = "delete from likebook where bookID=? and userID=?";
+		try {
+			conn = DBconn.getConnection();
+			ps =  conn.prepareStatement(sql);
+			ps.setInt(1, bookID);
+			ps.setInt(2, userID);
+			int i =  ps.executeUpdate();
+			if(i>0){
+				flag = true;
+			}
+		}catch (SQLException e) {
+			System.out.println("remove liked book error");
+			e.printStackTrace();
+		}finally {
+    		DBconn.close(null, ps, conn);
+    	}
+		return flag;
+	}
+	
 	@Override
 	public boolean addCartBook(int userID, int bookID) {
 		boolean flag = false;
@@ -121,8 +147,7 @@ public class BookDaoImpl implements BookDao {
     	}
 		return flag;
 	}
-	
-	/*@Override
+		/*@Override
 	public List<BookBean> findBookByName(String name) {
 		List<BookBean> list = new ArrayList<BookBean>();
 		Connection conn = null;
@@ -309,6 +334,27 @@ public class BookDaoImpl implements BookDao {
     	}
 		return num;
 	}
+	
+	@Override
+	public int getTotalLikeRecordsNum(int userID) {
+		// TODO Auto-generated method stub
+		Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int num = 0;
+        try {
+        	conn = DBconn.getConnection();
+        	ps = conn.prepareStatement("select count(*) from likebook lb, userinfo u, book b where lb.bookID = b.id and u.id = lb.userID and b.state = 0");
+            rs=ps.executeQuery();
+            rs.next();
+            num = rs.getInt(1);
+        }catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+    		DBconn.close(rs, ps, conn);
+    	}
+		return num;
+	}
 
 	@Override
 	public List<BookBean> findPageRecords(int startIndex, int pageSize) {
@@ -329,6 +375,37 @@ public class BookDaoImpl implements BookDao {
             	book.setName(rs.getString("name"));
             	book.setPrice(rs.getFloat("price"));
             	//book.setState(rs.getInt("state"));
+            	book.setISBN(rs.getString("ISBN"));
+            	book.setCourseCode(rs.getString("coursecode"));
+            	book.setPicturePath(rs.getString("picturepath"));
+            	book.setFilename(rs.getString("filename"));
+            	list.add(book);
+            }
+            return list;
+        }catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+    		DBconn.close(rs, ps, conn);
+    	}
+		return null;
+	}
+	@Override
+	public List<BookBean> findLikePageRecords(int startIndex, int pageSize, int userID) {
+		List<BookBean> list = new ArrayList<BookBean>();
+		Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+        	conn = DBconn.getConnection();
+        	ps = conn.prepareStatement("select b.* from likebook lb, userinfo u, book b where lb.bookID = b.id and u.id = lb.userID and b.state = 0 limit ?,?");
+        	ps.setInt(1, startIndex);
+        	ps.setInt(2, pageSize);
+            rs=ps.executeQuery();
+            while(rs.next()) {
+            	BookBean book = new BookBean();
+            	book.setId(rs.getInt("id"));
+            	book.setName(rs.getString("name"));
+            	book.setPrice(rs.getFloat("price"));
             	book.setISBN(rs.getString("ISBN"));
             	book.setCourseCode(rs.getString("coursecode"));
             	book.setPicturePath(rs.getString("picturepath"));
