@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="./common/header.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,11 +14,8 @@
 		<div class="banner_inner d-flex align-items-center">
 			<div class="container">
 				<div class="banner_content text-center">
-					<h2>Order Confirmation</h2>
-					<div class="page_link">
-						<a href="index.html">Home</a>
-						<a href="confirmation.html">Confirmation</a>
-					</div>
+					
+					
 				</div>
 			</div>
 		</div>
@@ -29,30 +27,22 @@
 		<div class="container">
 			<h3 class="title_confirmation">Thank you. Your order has been received.</h3>
 			<div class="row order_d_inner">
-				<div class="col-lg-4">
+				<div class="col-lg-12">
 					<div class="details_item">
 						<h4>Order Info</h4>
 						<ul class="list">
 							<li>
 								<a href="#">
-									<span>Order number</span> : 60235</a>
+									<span>Order No.</span> : ${orderNo} </a>
 							</li>
 							<li>
 								<a href="#">
-									<span>Date</span> : Los Angeles</a>
-							</li>
-							<li>
-								<a href="#">
-									<span>Total</span> : USD 2210</a>
-							</li>
-							<li>
-								<a href="#">
-									<span>Payment method</span> : Check payments</a>
+									<span>Order Date</span> : ${orderDate} </a>
 							</li>
 						</ul>
 					</div>
 				</div>
-				<div class="col-lg-4">
+				<!-- <div class="col-lg-4">
 					<div class="details_item">
 						<h4>Billing Address</h4>
 						<ul class="list">
@@ -74,8 +64,8 @@
 							</li>
 						</ul>
 					</div>
-				</div>
-				<div class="col-lg-4">
+				</div> -->
+				<!-- <div class="col-lg-4">
 					<div class="details_item">
 						<h4>Shipping Address</h4>
 						<ul class="list">
@@ -97,88 +87,79 @@
 							</li>
 						</ul>
 					</div>
-				</div>
+				</div> -->
 			</div>
 			<div class="order_details_table">
 				<h2>Order Details</h2>
+				<div class="table-responsive">
+				<!--================Cart Area =================-->
+	<section class="cart_area">
+		<div class="container">
+			<div class="cart_inner">
 				<div class="table-responsive">
 					<table class="table">
 						<thead>
 							<tr>
 								<th scope="col">Product</th>
-								<th scope="col">Quantity</th>
-								<th scope="col">Total</th>
+								<th scope="col"></th>
+								<th scope="col">Contact</th>
+								<th scope="col">Original Price ($)</th>
 							</tr>
 						</thead>
 						<tbody>
+							<c:forEach items="${records}" var="b" varStatus="vs">
 							<tr>
 								<td>
-									<p>Pixelstore fresh Blackberry</p>
+									<div class="media">
+									 	<input type="hidden" name="bookID" value="${b.bookID}">
+										<div class="d-flex ">
+											<img class="img-size" src="${pageContext.request.contextPath}/images/${b.picturePath}/${b.filename}" alt="">
+										</div>
+										<div class="media-body">
+											<p>${b.name}</p>
+										</div>
+									</div>
+								</td>								
+							<td>
+									<div class="product_count">
+
+									</div>
 								</td>
 								<td>
-									<h5>x 02</h5>
-								</td>
+										<div class="media-body">
+											<p>${b.phoneNumber}</p>
+										</div>
+								</td> 
 								<td>
-									<p>$720.00</p>
+									<div class="media-body">
+										<p>${b.price}</p>
+									</div>
 								</td>
 							</tr>
+							</c:forEach>
+
 							<tr>
 								<td>
-									<p>Pixelstore fresh Blackberry</p>
+
 								</td>
 								<td>
-									<h5>x 02</h5>
+
 								</td>
 								<td>
-									<p>$720.00</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<p>Pixelstore fresh Blackberry</p>
+									<h5>Total</h5>
 								</td>
 								<td>
-									<h5>x 02</h5>
-								</td>
-								<td>
-									<p>$720.00</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<h4>Subtotal</h4>
-								</td>
-								<td>
-									<h5></h5>
-								</td>
-								<td>
-									<p>$2160.00</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<h4>Shipping</h4>
-								</td>
-								<td>
-									<h5></h5>
-								</td>
-								<td>
-									<p>Flat rate: $50.00</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<h4>Total</h4>
-								</td>
-								<td>
-									<h5></h5>
-								</td>
-								<td>
-									<p>$2210.00</p>
+									<h5>${total}</h5>
 								</td>
 							</tr>
 						</tbody>
 					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Cart Area =================-->
+
 				</div>
 			</div>
 		</div>

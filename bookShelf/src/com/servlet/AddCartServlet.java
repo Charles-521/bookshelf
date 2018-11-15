@@ -17,6 +17,7 @@ import com.dao.impl.BookDaoImpl;
 import com.dao.impl.UserDaoImpl;
 import com.service.Service;
 import com.service.impl.ServiceImpl;
+import com.util.AuthUtil;
 
 
 /**
@@ -38,17 +39,24 @@ public class AddCartServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String url = request.getParameter("url");
+		if (!AuthUtil.IsLogin(request)) {
+			if (!AuthUtil.IsLogin(request)) {
+				response.sendRedirect(request.getContextPath() + "/" + url); 
+				return;
+			}
+			return;
+		}
 		Service s= new ServiceImpl();	
 		UserDao user= new UserDaoImpl();
 		
-		String name = (String) request.getSession().getAttribute("name");
+		
 		String id = request.getParameter("bookID");
-		String url = request.getParameter("url");
 		int bookID = 0;
 		if(id!=null&&!id.equals("")){
 			bookID = Integer.parseInt(id);
 		}
+		String name = (String) request.getSession().getAttribute("name");
 		int userID = user.findIdByName(name);
 		boolean rs = s.addCartBook(userID, bookID);
 		PrintWriter out = response.getWriter();

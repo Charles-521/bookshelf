@@ -40,12 +40,12 @@ public class RegisterServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String name = request.getParameter("name"); //»ñÈ¡jspÒ³Ãæ´«¹ýÀ´µÄ²ÎÊý
+		String name = request.getParameter("name"); //ï¿½ï¿½È¡jspÒ³ï¿½æ´«ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
 		String phoneNumber = request.getParameter("phonenumber");
 		
-		UserBean user = new UserBean(); //ÊµÀý»¯Ò»¸ö¶ÔÏó£¬×é×°ÊôÐÔ
+		UserBean user = new UserBean(); //Êµï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½
 		user.setName(name);
 		user.setEmailAddress(email);
 		user.setPassword(password);

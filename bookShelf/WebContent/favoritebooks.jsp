@@ -7,15 +7,22 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-</head>
-<body>
 
-
-<head>
 	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
 	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style>
+	.autoheight {
+		height:auto !important;
+	}
+	.nopadding {
+		padding:0 !important;
+	}
+	
+	</style>
 </head>
+<body>
+
 <body>
 	<!--================Home Banner Area =================-->
 	<section class="banner_area">

@@ -1,46 +1,73 @@
 package com.dao.impl;
 
+import java.util.Date;
+import java.math.BigDecimal;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import com.bean.BookBean;
 import com.dao.BookDao;
 import com.util.DBconn;
 
-
-
 public class BookDaoImpl implements BookDao {
 	@Override
-	public boolean checkout(String bookIDs) throws SQLException {
-		boolean flag = false;
+	public int checkout(int userID, BigDecimal total,  String bookIDs) throws SQLException {
+
 		Connection conn = null;
+		int genKey = 0;
 		String[] ids = bookIDs.split(",");
 		String sql = "update book set state = 1 where id=?";
-	
+		String sqlOrder = "insert into userorder values (null, ?, ?, ?, ?)";
+		String sqlOrderDetail = "insert into orderdetail values (null, ?, ?)";
+		
 		try {
 			conn = DBconn.getConnection();
 			conn.setAutoCommit(false);
+
+		    Date today = Calendar.getInstance().getTime();
+		    SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddhhmmss");
+		    Random r = new Random();
+		    String orderNo = "ORD" + formatter.format(today)+ String.format("%04d", r.nextInt(10000));;
+			PreparedStatement psOrder =  conn.prepareStatement(sqlOrder, Statement.RETURN_GENERATED_KEYS);
+			psOrder.setInt(1, userID);
+			psOrder.setBigDecimal(2, total);;
+			psOrder.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
+			psOrder.setString(4, orderNo);
+			psOrder.executeUpdate();
+			ResultSet generatedKeys = psOrder.getGeneratedKeys();
+			generatedKeys.next();
+			genKey = generatedKeys.getInt(1);
 			ArrayList<PreparedStatement> stms = new ArrayList<PreparedStatement>();
 			for (int i=0;  i<ids.length; i++) {
 				PreparedStatement ps =  conn.prepareStatement(sql);
 				ps.setInt(1, Integer.parseInt(ids[i]));
 				stms.add(ps);
 			}
+			for (int i=0;  i<ids.length; i++) {
+				PreparedStatement ps =  conn.prepareStatement(sqlOrderDetail);
+				ps.setInt(1, genKey);
+				ps.setInt(2, Integer.parseInt(ids[i]));
+				stms.add(ps);
+			}
+			
 			for (PreparedStatement s : stms) {
 				s.executeUpdate();
 			}
 			
 			conn.commit();
-			flag = true;
 		}catch (SQLException e) {
 			conn.rollback();
-			System.out.println("add book error");
+			System.out.println("checkout failed");
 			e.printStackTrace();
 		}finally {
 			conn.close();
     	}
-		return flag;
+		return genKey;
 	}
 	
 	
@@ -55,7 +82,7 @@ public class BookDaoImpl implements BookDao {
 			conn = DBconn.getConnection();
 			ps =  conn.prepareStatement(sql);
 			ps.setString(1, bookBean.getName());
-			ps.setFloat(2, bookBean.getPrice());
+			ps.setBigDecimal(2, bookBean.getPrice());
 			ps.setString(3, bookBean.getISBN());
 			ps.setString(4, bookBean.getCourseCode());
 			ps.setString(5, bookBean.getPicturePath());
@@ -64,7 +91,6 @@ public class BookDaoImpl implements BookDao {
 			ps.setString(8, bookBean.getDescription());
 			int i =  ps.executeUpdate();
 			if(i>0){
-				//��������������0
 				flag = true;
 			}
 		}catch (SQLException e) {
@@ -256,19 +282,20 @@ public class BookDaoImpl implements BookDao {
         ResultSet rs = null;
         try {
         	conn = DBconn.getConnection();
-        	ps = conn.prepareStatement("select B.* from book B, userinfo U, cart C where C.bookID = B.id and C.userID = U.id and U.id = ? and B.state = 0");
+        	ps = conn.prepareStatement("select B.*, u.phonenumber from book B, userinfo U, cart C where C.bookID = B.id and C.userID = U.id and U.id = ? and B.state = 0");
         	ps.setInt(1, userID);
             rs=ps.executeQuery();
             while(rs.next()) {
             	BookBean book = new BookBean();
-            	book.setId(rs.getInt("id"));
-            	book.setName(rs.getString("name"));
-            	book.setPrice(rs.getFloat("price"));
+            	book.setId(rs.getInt("B.id"));
+            	book.setName(rs.getString("B.name"));
+            	book.setPrice(rs.getBigDecimal("B.price"));
             	//book.setState(rs.getInt("state"));
-            	book.setISBN(rs.getString("ISBN"));
-            	book.setCourseCode(rs.getString("coursecode"));
-            	book.setPicturePath(rs.getString("picturepath"));
-            	book.setFilename(rs.getString("filename"));
+            	book.setISBN(rs.getString("B.ISBN"));
+            	book.setPhoneNumber(rs.getString("u.phonenumber"));
+            	book.setCourseCode(rs.getString("B.coursecode"));
+            	book.setPicturePath(rs.getString("B.picturepath"));
+            	book.setFilename(rs.getString("B.filename"));
             	list.add(book);
             }
             return list;
@@ -295,7 +322,7 @@ public class BookDaoImpl implements BookDao {
             	BookBean book = new BookBean();
             	book.setId(rs.getInt("id"));
             	book.setName(rs.getString("name"));
-            	book.setPrice(rs.getFloat("price"));
+            	book.setPrice(rs.getBigDecimal("price"));
             	//book.setState(rs.getInt("state"));
             	book.setISBN(rs.getString("ISBN"));
             	book.setCourseCode(rs.getString("coursecode"));
@@ -373,7 +400,7 @@ public class BookDaoImpl implements BookDao {
             	BookBean book = new BookBean();
             	book.setId(rs.getInt("id"));
             	book.setName(rs.getString("name"));
-            	book.setPrice(rs.getFloat("price"));
+            	book.setPrice(rs.getBigDecimal("price"));
             	//book.setState(rs.getInt("state"));
             	book.setISBN(rs.getString("ISBN"));
             	book.setCourseCode(rs.getString("coursecode"));
@@ -405,7 +432,7 @@ public class BookDaoImpl implements BookDao {
             	BookBean book = new BookBean();
             	book.setId(rs.getInt("id"));
             	book.setName(rs.getString("name"));
-            	book.setPrice(rs.getFloat("price"));
+            	book.setPrice(rs.getBigDecimal("price"));
             	book.setISBN(rs.getString("ISBN"));
             	book.setCourseCode(rs.getString("coursecode"));
             	book.setPicturePath(rs.getString("picturepath"));
@@ -496,7 +523,7 @@ public class BookDaoImpl implements BookDao {
             	BookBean book = new BookBean();
             	book.setId(rs.getInt("id"));
             	book.setName(rs.getString("name"));
-            	book.setPrice(rs.getFloat("price"));
+            	book.setPrice(rs.getBigDecimal("price"));
             	//book.setState(rs.getInt("state"));
             	book.setISBN(rs.getString("ISBN"));
             	book.setCourseCode(rs.getString("coursecode"));
@@ -530,7 +557,7 @@ public class BookDaoImpl implements BookDao {
             	BookBean book = new BookBean();
             	book.setId(rs.getInt("id"));
             	book.setName(rs.getString("name"));
-            	book.setPrice(rs.getFloat("price"));
+            	book.setPrice(rs.getBigDecimal("price"));
             	//book.setState(rs.getInt("state"));
             	book.setISBN(rs.getString("ISBN"));
             	book.setCourseCode(rs.getString("coursecode"));
@@ -564,7 +591,7 @@ public class BookDaoImpl implements BookDao {
             	BookBean book = new BookBean();
             	book.setId(rs.getInt("id"));
             	book.setName(rs.getString("name"));
-            	book.setPrice(rs.getFloat("price"));
+            	book.setPrice(rs.getBigDecimal("price"));
             	//book.setState(rs.getInt("state"));
             	book.setISBN(rs.getString("ISBN"));
             	book.setCourseCode(rs.getString("coursecode"));
@@ -658,7 +685,7 @@ public class BookDaoImpl implements BookDao {
             while(rs.next()) {
             	book.setId(rs.getInt("id"));
             	book.setName(rs.getString("name"));
-            	book.setPrice(rs.getFloat("price"));
+            	book.setPrice(rs.getBigDecimal("price"));
             	book.setState(rs.getInt("state"));
             	book.setISBN(rs.getString("ISBN"));
             	book.setCourseCode(rs.getString("coursecode"));

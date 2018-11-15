@@ -1,5 +1,6 @@
 package com.dao;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -23,5 +24,5 @@ public interface BookDao {
 	public int getTotalRecordsNumByName(String keyWords);
 	public int getTotalRecordsNumByISBN(String keyWords);
 	public int getTotalRecordsNumByCourseCode(String keyWords);
-	public boolean checkout(String bookIDs) throws SQLException;
+	public int checkout(int userID, BigDecimal total, String bookIDs) throws SQLException;
 }

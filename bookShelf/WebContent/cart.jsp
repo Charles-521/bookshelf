@@ -21,9 +21,13 @@
 		</div>
 	</section>
 	<!--================End Home Banner Area =================-->
-	
+	<section class="order_details p_120 ${emptycart}">
+		<div class="container">
+			<h3 class="title_confirmation">Oops! Your shop cart is empty</h3>
+			</div>
+			</section>
 	<!--================Cart Area =================-->
-	<section class="cart_area">
+	<section class="cart_area ${visibility} ">
 		<div class="container">
 			<div class="cart_inner">
 				<div class="table-responsive">
@@ -32,66 +36,43 @@
 							<tr>
 								<th scope="col">Product</th>
 								<th scope="col"></th>
-								<th scope="col"></th>
-								<th scope="col">Price ($)</th>
-								<!-- <th scope="col">Quantity</th> 
-								<th scope="col">Total</th>-->
+								<th scope="col">Contact</th>
+								<th scope="col">Original Price ($)</th>
 							</tr>
 						</thead>
 						<tbody>
+							<input type="hidden" id="total" value="${total}">
 							<c:forEach items="${records}" var="b" varStatus="vs">
 							<tr>
 								<td>
 									<div class="media">
 									 	<input type="hidden" name="bookID" value="${b.id}">
-										<div class="d-flex">
-											<img src="${pageContext.request.contextPath}/images/${b.picturePath}/${b.filename}" alt="">
+										<div class="d-flex ">
+											<img class="img-size" src="${pageContext.request.contextPath}/images/${b.picturePath}/${b.filename}" alt="">
 										</div>
 										<div class="media-body">
 											<p>${b.name}</p>
 										</div>
 									</div>
-								</td>
-								
+								</td>								
 							<td>
 									<div class="product_count">
-										<!-- <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-										<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-										 class="increase items-count" type="button">
-											<i class="lnr lnr-chevron-up"></i>
-										</button>
-										<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-										 class="reduced items-count" type="button">
-											<i class="lnr lnr-chevron-down"></i>
-										</button> -->
+
 									</div>
 								</td>
 								<td>
-									<!-- <h5>$720.00</h5> -->
+										<div class="media-body">
+											<p>${b.phoneNumber}</p>
+										</div>
 								</td> 
 								<td>
-									<h5>${b.price}</h5>
+									<div class="media-body">
+										<p>${b.price}</p>
+									</div>
 								</td>
 							</tr>
 							</c:forEach>
-<!-- 							<tr class="bottom_button">
-								<td>
-									<a class="gray_btn" href="#">Update Cart</a>
-								</td>
-								<td>
 
-								</td>
-								<td>
-
-								</td>
-								<td>
-									<div class="cupon_text">
-										<input type="text" placeholder="Coupon Code">
-										<a class="main_btn" href="#">Apply</a>
-										<a class="gray_btn" href="#">Close Coupon</a>
-									</div>
-								</td>
-							</tr> -->
 							<tr>
 								<td>
 
@@ -106,50 +87,7 @@
 									<h5>${total}</h5>
 								</td>
 							</tr>
-	<!-- 						<tr class="shipping_area">
-								<td>
 
-								</td>
-								<td>
-
-								</td>
-								<td>
-									<h5>Shipping</h5>
-								</td>
-								<td>
-									<div class="shipping_box">
-										<ul class="list">
-											<li>
-												<a href="#">Flat Rate: $5.00</a>
-											</li>
-											<li>
-												<a href="#">Free Shipping</a>
-											</li>
-											<li>
-												<a href="#">Flat Rate: $10.00</a>
-											</li>
-											<li class="active">
-												<a href="#">Local Delivery: $2.00</a>
-											</li>
-										</ul>
-										<h6>Calculate Shipping
-											<i class="fa fa-caret-down" aria-hidden="true"></i>
-										</h6>
-										<select class="shipping_select">
-											<option value="1">Bangladesh</option>
-											<option value="2">India</option>
-											<option value="4">Pakistan</option>
-										</select>
-										<select class="shipping_select">
-											<option value="1">Select a State</option>
-											<option value="2">Select a State</option>
-											<option value="4">Select a State</option>
-										</select>
-										<input type="text" placeholder="Postcode/Zipcode">
-										<a class="gray_btn" href="#">Update Details</a>
-									</div>
-								</td>
-							</tr> -->
 							<tr class="out_button_area">
 								<td>
 
@@ -165,7 +103,6 @@
 								</td>
 								<td>
 									<div class="checkout_btn_inner">
-										<!-- <a class="gray_btn" href="#"> Continue Shopping</a> -->
 										<a id="checkoutBtn" class="main_btn" href="#">Proceed to checkout</a>
 									</div>
 								</td>
@@ -324,6 +261,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
    /* 	/servlet/Test2 */
    $("#checkoutBtn").on("click", function(){
 	  	var ele = $("input[name*='bookID']");
+	  	var amout = $("#total").val();
 	  	if (ele.length <= 0) return;
 	  	var ids = "";
 	  	for (i = 0; i < ele.length; i++){
@@ -335,12 +273,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		    type:'POST', 
 		    async:true,    
 		    data:{
-		        bookIds: ids
+		        bookIds: ids, 
+		        total: amout
 		    },
 		    dataType:'text',    
 		    success:function(data){
-		    	if(data == "0")
-		    		window.location.href = "showcart.jsp"	    		
+		    	if(data != "0")
+		    		window.location.href = "ConfirmOrderServlet?orderID=" + data;	    		
 		    	else
 		    		alert("Checkout failed");
 		    }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class AddBookServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//ÅÐ¶Ï±íµ¥ÊÇ²»ÊÇmultipart/form-dataÀàÐÍµÄ
+		//ï¿½Ð¶Ï±ï¿½ï¿½Ç²ï¿½ï¿½ï¿½multipart/form-dataï¿½ï¿½ï¿½Íµï¿½
 /*		String name = request.getParameter("name");
 		System.out.println(name);
 		String pricetmp = request.getParameter("price");
@@ -69,9 +70,9 @@ public class AddBookServlet extends HttpServlet {
 		String ISBN = request.getParameter("ISBN");
 		String coursecode = request.getParameter("coursecode");
 		int owenrid = 1;*/
-		//**ÐèÒª½«userid´ÓsessionÖÐÈ¡³öÈ»ºóÐ´ÈëÊý¾Ý¿â
+		//**ï¿½ï¿½Òªï¿½ï¿½useridï¿½ï¿½sessionï¿½ï¿½È¡ï¿½ï¿½È»ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
 		UserDao user= new UserDaoImpl();
-		PrintWriter out = response.getWriter();//³õÊ¼»¯out¶ÔÏó
+		PrintWriter out = response.getWriter();//ï¿½ï¿½Ê¼ï¿½ï¿½outï¿½ï¿½ï¿½ï¿½
 		int owenrid = 0;
 		String name = (String) request.getSession().getAttribute("name");
 		//System.out.println(name);
@@ -86,7 +87,7 @@ public class AddBookServlet extends HttpServlet {
 		if(!isMultipart){
 			throw new RuntimeException("The form is not multipart/form-data");
 		}
-		//½âÎöÇëÇóÄÚÈÝ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 		ServletFileUpload sfu = new ServletFileUpload(factory);
 		List<FileItem> items = new ArrayList<FileItem>();
@@ -96,24 +97,24 @@ public class AddBookServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		BookBean book = new BookBean();//¿Õ¶ÔÏó
+		BookBean book = new BookBean();//ï¿½Õ¶ï¿½ï¿½ï¿½
 		BookDao bookDao = new BookDaoImpl();
 		for(FileItem item:items){
-			//ÆÕÍ¨×Ö¶Î£º°ÑÊý¾Ý·â×°µ½Book¶ÔÏóÖÐ
+			//ï¿½ï¿½Í¨ï¿½Ö¶Î£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý·ï¿½×°ï¿½ï¿½Bookï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if(item.isFormField()){
 				book.setOwnerId(owenrid);
 				processFormFiled(item,book);
 				
 			}else{
-			//ÉÏ´«×Ö¶Î£ºÉÏ´«
+			//ï¿½Ï´ï¿½ï¿½Ö¶Î£ï¿½ï¿½Ï´ï¿½
 				processUploadFiled(item,book,out);
 			}
 		}
-		//°ÑÊé¼®ÐÅÏ¢±£´æµ½Êý¾Ý¿âÖÐ
-		float a = book.getPrice();
-		if ((Math.abs(a)<0.00000001)) {
-			out.print("<script language='javascript'>alert('Price must be a number!');window.location.href='uploadbook.jsp';</script>"); 
-		}
+		//ï¿½ï¿½ï¿½é¼®ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½æµ½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½
+		BigDecimal a = book.getPrice();
+//		if ((Math.abs(a)<0.00000001)) {
+//			out.print("<script language='javascript'>alert('Price must be a number!');window.location.href='uploadbook.jsp';</script>"); 
+//		}
 		if (book.getName().equals("")||book.getISBN().equals("")||book.getCourseCode().equals("")||book.getDescription().equals("")) {
 			out.print("<script language='javascript'>alert('Please fill all the information!');window.location.href='uploadbook.jsp';</script>"); 
 		}
@@ -121,16 +122,16 @@ public class AddBookServlet extends HttpServlet {
 		bookDao.addBook(book);}
 		out.print("<script language='javascript'>alert('Upload successfully!');window.location.href='uploadbook.jsp';</script>"); 
 	}
-	//Ìí¼ÓÍ¼Êé
-		//´¦ÀíÎÄ¼þÉÏ´«
+	//ï¿½ï¿½ï¿½Í¼ï¿½ï¿½
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ï´ï¿½
 		private void processUploadFiled(FileItem item, BookBean book,PrintWriter out) {
-			//´æ·ÅÂ·¾¶£º²»Òª·ÅÔÚWEB-INFÖÐ
+			//ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½WEB-INFï¿½ï¿½
 			String storeDirectory = getServletContext().getRealPath("/images");
 			File rootDirectory = new File(storeDirectory);
 			if(!rootDirectory.exists()){
 				rootDirectory.mkdirs();
 			}
-			//¸ãÎÄ¼þÃû
+			//ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
 			String filename = item.getName();//  a.jpg
 			if (filename=="")
 			{
@@ -142,11 +143,11 @@ public class AddBookServlet extends HttpServlet {
 				book.setFilename(filename);
 			}
 			
-			//¼ÆËã×ÓÄ¿Â¼
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿Â¼
 			String path = genChildDirectory(storeDirectory, filename);
 			book.setPicturePath(path);
 			
-			//ÎÄ¼þÉÏ´«	
+			//ï¿½Ä¼ï¿½ï¿½Ï´ï¿½	
 			try {
 				item.write(new File(rootDirectory, path+"/"+filename));
 			} catch (Exception e) {
@@ -169,7 +170,7 @@ public class AddBookServlet extends HttpServlet {
 			return str;
 			
 		}
-		//°ÑFileItemÖÐµÄÊý¾Ý·â×°µ½BookÖÐ
+		//ï¿½ï¿½FileItemï¿½Ðµï¿½ï¿½ï¿½ï¿½Ý·ï¿½×°ï¿½ï¿½Bookï¿½ï¿½
 		private void processFormFiled(FileItem item, BookBean book) {
 			try {
 				String fieldName = item.getFieldName();//name

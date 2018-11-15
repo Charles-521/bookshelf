@@ -13,6 +13,7 @@ import com.dao.UserDao;
 import com.dao.impl.UserDaoImpl;
 import com.service.Service;
 import com.service.impl.ServiceImpl;
+import com.util.AuthUtil;
 
 /**
  * Servlet implementation class RemoveLikeBooks
@@ -33,7 +34,7 @@ public class RemoveLikeBooks extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		if (!AuthUtil.IsLogin(request)) return;
 		Service s= new ServiceImpl();	
 		UserDao user= new UserDaoImpl();
 		

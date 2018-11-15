@@ -43,6 +43,7 @@
 	<!-- main css -->
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/responsive.css">
+
 </head>
 
 <body>
@@ -84,7 +85,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container-fluid">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="index.jsp">
+					<a class="autoheight navbar-brand logo_h" href="index.jsp">
 						<img src="img/logo.png" alt="">
 					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -125,7 +126,7 @@
 											</ul>
 										</li> -->
 										<li class="nav-item submenu dropdown">
-											<a href="showcart.jsp" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cart</a>
+											<a href="showcart.jsp" class="nav-link dropdown-toggle"   aria-haspopup="true" aria-expanded="false">Cart</a>
 											<!-- <ul class="dropdown-menu">
 												<li class="nav-item">
 													<a class="nav-link" href="showcart.jsp">View Cart</a>
@@ -141,7 +142,7 @@
 								<ul class="nav navbar-nav navbar-right right_nav pull-right">
 									<hr>
 									<li class="nav-item">
-										<a href="#" class="icons">
+										<a href="#" class="nopadding icons">
 											<i class="fa fa-search" aria-hidden="true"></i>
 											<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 										</a>
@@ -150,7 +151,7 @@
 									<hr>
 
 									<li class="nav-item">
-										<a href="#" class="icons">
+										<a href="#" class="nopadding icons">
 											<i class="fa fa-user" aria-hidden="true"></i>
 											<!-- <i class="lnr lnr lnr-user" aria-hidden="true"></i> -->
 											<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
@@ -160,7 +161,7 @@
 									<hr>
 
 									<li class="nav-item">
-										<a href="showfavorite.jsp" class="icons">
+										<a href="showfavorite.jsp" class="nopadding icons">
 											<!-- <i class="fa fa-heart-o" aria-hidden="true"></i> -->
 											<i class="lnr lnr lnr-heart" aria-hidden="true"></i>
 										</a>
@@ -169,7 +170,7 @@
 									<hr>
 
 									<li class="nav-item">
-										<a href="showcart.jsp" class="icons">
+										<a href="showcart.jsp" class="nopadding icons">
 											<i class="lnr lnr lnr-cart"></i>
 										</a>
 									</li>

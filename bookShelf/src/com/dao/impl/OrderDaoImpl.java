@@ -12,6 +12,7 @@ import java.util.List;
 
 import com.bean.BookBean;
 import com.bean.OrderBean;
+import com.bean.OrderInfo;
 import com.dao.OrderDao;
 import com.util.DBconn;
 
@@ -64,6 +65,44 @@ public class OrderDaoImpl implements OrderDao {
             	order.setBuyerID(rs.getInt("buyerId"));
             	order.setPayment(rs.getFloat("payment"));
             	order.setCreateDate(rs.getString("createDate"));
+            	list.add(order);
+            }
+            return list;
+        }catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+    		DBconn.close(rs, ps, conn);
+    	}
+		return null;
+	}
+	
+	@Override
+	public List<OrderInfo> findOrderInfoByOrderID(int orderID) {
+		List<OrderInfo> list = new ArrayList<OrderInfo>();
+		Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+        	conn = DBconn.getConnection();
+        	ps = conn.prepareStatement("select u.*, o.*, b.*, ui.* from userorder u, orderdetail o, book b, userinfo ui where u.id=o.orderID and o.bookID = b.id and b.ownerid=ui.id and u.id = ?");
+        	ps.setInt(1, orderID);
+            rs=ps.executeQuery();
+            while(rs.next()) {
+            	OrderInfo order = new OrderInfo();
+            	order.setId(rs.getInt("u.id"));
+            	order.setBuyerID(rs.getInt("u.buyerID"));
+            	order.setPayment(rs.getBigDecimal("u.payment"));
+            	order.setCreateDate(rs.getString("u.createDate"));
+            	order.setOrderNo(rs.getString("u.orderNo"));
+            	order.setBookID(rs.getInt("b.id"));
+            	order.setName(rs.getString("b.name"));
+            	order.setPrice(rs.getFloat("b.price"));
+            	order.setISBN(rs.getString("b.ISBN"));
+            	order.setPhoneNumber(rs.getString("ui.phonenumber"));
+            	order.setCourseCode(rs.getString("b.coursecode"));
+            	order.setPicturePath(rs.getString("b.picturepath"));
+            	order.setFilename(rs.getString("b.filename"));
+            	
             	list.add(order);
             }
             return list;

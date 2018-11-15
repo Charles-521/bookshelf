@@ -1,25 +1,63 @@
 package com.bean;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-public class BookBean {
+public class OrderInfo {
 	private int id;
+	private int buyerID;
+	private BigDecimal payment;
+	private String createDate;
+	private String orderNumber;
+	private int BookID;
 	private int ownerId;
-	private BigDecimal price;
+	private float price;
 	private String name;
 	private String courseCode;
 	private String ISBN;
-	private String picturePath;//���ͼƬ·��
-	private String filename;//���ĺ��Ψһ�ļ���
+	private String picturePath;
+	private String filename;
 	private String description;
+	private int state;
 	private String phoneNumber;
+	
+	public String getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+	public String getOrderNo() {
+		return orderNumber;
+	}
+	public void setOrderNo(String orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+	public int getBuyerID() {
+		return buyerID;
+	}
+	public void setBuyerID(int buyerID) {
+		this.buyerID = buyerID;
+	}
+
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public BigDecimal getPayment() {
+		return payment;
+	}
+	public void setPayment(BigDecimal payment) {
+		this.payment = payment;
+	}
 	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	private int state;
 	
 	public int getOwnerId() {
 		return ownerId;
@@ -27,16 +65,16 @@ public class BookBean {
 	public void setOwnerId(int ownerId) {
 		this.ownerId = ownerId;
 	}
-	public int getId() {
-		return id;
+	public int getBookID() {
+		return BookID;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setBookID(int id) {
+		this.BookID = id;
 	}
-	public BigDecimal getPrice() {
+	public float getPrice() {
 		return price;
 	}
-	public void setPrice(BigDecimal price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
 	public String getName() {
@@ -84,5 +122,4 @@ public class BookBean {
 	public void setState(int state) {
 		this.state = state;
 	}
-	
 }
