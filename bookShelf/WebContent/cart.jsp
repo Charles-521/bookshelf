@@ -23,7 +23,7 @@
 	<!--================End Home Banner Area =================-->
 	<section class="order_details p_120 ${emptycart}">
 		<div class="container">
-			<h3 class="title_confirmation">Oops! Your shop cart is empty</h3>
+			<h3 class="title_confirmation">Oops! Your shopping cart is empty</h3>
 			</div>
 			</section>
 	<!--================Cart Area =================-->

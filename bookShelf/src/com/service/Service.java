@@ -13,7 +13,7 @@ public interface Service {
 	Page findBookPageRecordsByISBN(String keywords);
 	Page findBookPageRecordsByCourseCode(String keywords);
 	List<BookBean> findBookCartByUserID(int userID);
-	boolean addLikeBook(int userID, int bookID);
+	int addLikeBook(int userID, int bookID);
 	boolean removeLikeBook(int userID, int bookID);
-	boolean addCartBook(int userID, int bookID);
+	int addCartBook(int userID, int bookID);
 }

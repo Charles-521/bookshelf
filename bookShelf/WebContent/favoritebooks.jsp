@@ -39,8 +39,8 @@
 	<!--================Category Product Area =================-->
 	<section class="cat_product_area section_gap">
 		<div class="container-fluid">
-			<div class="row flex-row-reverse">
-				<div class="col-lg-12">
+			<div class="row ">
+				<div class="col-lg-10 offset-lg-1">
 					<div class="product_top_bar">
 						<div style="">
 						    <form class="bs-example bs-example-form" role="form" action="FindBookPages" method="get">
@@ -104,10 +104,10 @@
 						<form target="_blank" novalidate action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&id=92a4423d01"
 						 method="get" class="subscription relative">
 							<input type="email" name="EMAIL" placeholder="Email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email address'"
-							 required="">
+							 required=""
 							<!-- <div style="position: absolute; left: -5000px;">
 									<input type="text" name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="">
-								</div> -->
+								</div> -->>
 							<button type="submit" class="newsl-btn">Get Started</button>
 							<div class="info"></div>
 						</form>

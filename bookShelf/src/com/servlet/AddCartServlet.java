@@ -58,9 +58,13 @@ public class AddCartServlet extends HttpServlet {
 		}
 		String name = (String) request.getSession().getAttribute("name");
 		int userID = user.findIdByName(name);
-		boolean rs = s.addCartBook(userID, bookID);
+		int rs = s.addCartBook(userID, bookID);
 		PrintWriter out = response.getWriter();
-		if (!rs) {
+		if (rs == 2) {
+			out.printf("<script language='javascript'>alert('It must be your favorite book!');window.location.href='%s';</script>", url); 
+			return;
+		}
+		if (rs == 3) {
 			out.printf("<script language='javascript'>alert('Fail to add to cart!');window.location.href='%s';</script>", url); 
 			return;
 		}

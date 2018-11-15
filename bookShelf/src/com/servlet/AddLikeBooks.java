@@ -60,9 +60,13 @@ public class AddLikeBooks extends HttpServlet {
 			bookID = Integer.parseInt(id);
 		}
 		int userID = user.findIdByName(name);
-		boolean rs = s.addLikeBook(userID, bookID);
+		int rs = s.addLikeBook(userID, bookID);
 		PrintWriter out = response.getWriter();
-		if (!rs) {
+		if (rs == 2) {
+			out.printf("<script language='javascript'>alert('It must be your favorite book!');window.location.href='%s';</script>", url); 
+			return;
+		}
+		if (rs == 3) {
 			out.printf("<script language='javascript'>alert('Fail to add to favorite!');window.location.href='%s';</script>", url); 
 			return;
 		}

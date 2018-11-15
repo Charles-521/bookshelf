@@ -82,7 +82,7 @@ public class ServiceImpl implements Service {
 	}
 	
 	@Override
-	public boolean addLikeBook(int userID, int bookID) {
+	public int addLikeBook(int userID, int bookID) {
 		return bookDao.addLikeBook(userID, bookID);		
 	}
 	
@@ -93,7 +93,7 @@ public class ServiceImpl implements Service {
 	}
 	
 	@Override
-	public boolean addCartBook(int userID, int bookID) {
+	public int addCartBook(int userID, int bookID) {
 		return bookDao.addCartBook(userID, bookID);
 	}
 

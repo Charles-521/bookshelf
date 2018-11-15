@@ -103,19 +103,28 @@ public class BookDaoImpl implements BookDao {
 	}
 	
 	@Override	
-	public boolean addLikeBook(int userID, int bookID) {
-		boolean flag = false;
+	public int addLikeBook(int userID, int bookID) {
+		int flag = 3;
 		Connection conn = null;
 		PreparedStatement ps = null;
 		String sql = "insert into likebook(bookID, userID)values(?,?)";
 		try {
 			conn = DBconn.getConnection();
-			ps =  conn.prepareStatement(sql);
+			PreparedStatement psv = conn.prepareStatement("select id from likebook where bookID=? and userID=?");
+			psv.setInt(1, bookID);
+			psv.setInt(2, userID);
+            ResultSet rs = psv.executeQuery();
+            if(rs.first()) {
+            	flag = 2;
+            	return flag;
+            }
+
+            ps =  conn.prepareStatement(sql);
 			ps.setInt(1, bookID);
 			ps.setInt(2, userID);
 			int i =  ps.executeUpdate();
 			if(i>0){
-				flag = true;
+				flag = 1;
 			}
 		}catch (SQLException e) {
 			System.out.println("add liked book error");
@@ -151,22 +160,31 @@ public class BookDaoImpl implements BookDao {
 	}
 	
 	@Override
-	public boolean addCartBook(int userID, int bookID) {
-		boolean flag = false;
+	public int addCartBook(int userID, int bookID) {
+		int flag = 3;
 		Connection conn = null;
 		PreparedStatement ps = null;
 		String sql = "insert into cart(bookID, userID)values(?,?)";
 		try {
 			conn = DBconn.getConnection();
+			PreparedStatement psv = conn.prepareStatement("select id from cart where bookID=? and userID=?");
+			psv.setInt(1, bookID);
+			psv.setInt(2, userID);
+            ResultSet rs = psv.executeQuery();
+            if(rs.first()) {
+            	flag = 2;
+            	return flag;
+            }
+			
 			ps =  conn.prepareStatement(sql);
 			ps.setInt(1, bookID);
 			ps.setInt(2, userID);
 			int i =  ps.executeUpdate();
 			if(i>0){
-				flag = true;
+				flag = 1;
 			}
 		}catch (SQLException e) {
-			System.out.println("add liked book error");
+			System.out.println("add cart error");
 			e.printStackTrace();
 		}finally {
     		DBconn.close(null, ps, conn);
