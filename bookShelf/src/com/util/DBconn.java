@@ -5,9 +5,9 @@ import java.sql.*;
 
 
 public class DBconn {
-	static String url = "jdbc:mysql://localhost:3306/bookshelf?useunicuee=true& characterEncoding=utf8"; 
-	static String username = "root"; 
-	static String password = "root"; 
+	static String url = "jdbc:mysql://ec2-52-77-0-56.ap-southeast-1.compute.amazonaws.com:3306/bookshelf?useunicode=true&characterEncoding=utf8"; 
+	static String username = "bookshelf"; 
+	static String password = "bookshelf123!"; 
 	static Connection  conn = null;
 	static ResultSet rs = null;
 	static PreparedStatement ps =null;
@@ -16,7 +16,7 @@ public class DBconn {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(url,username,password);
 		} catch (Exception e) {
-			System.out.println("init [SQLÇý¶¯³ÌÐò³õÊ¼»¯Ê§°Ü£¡]");
+			System.out.println("init [SQLï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ê§ï¿½Ü£ï¿½]");
 			e.printStackTrace();
 		}
 	}*/
