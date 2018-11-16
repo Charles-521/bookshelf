@@ -68,7 +68,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<a href="ShowAccountServlet">
 								My Account
 							</a>
 						</li>
@@ -151,7 +151,7 @@
 									<hr>
 
 									<li class="nav-item">
-										<a href="#" class="nopadding icons">
+										<a href="ShowAccountServlet" class="nopadding icons">
 											<i class="fa fa-user" aria-hidden="true"></i>
 											<!-- <i class="lnr lnr lnr-user" aria-hidden="true"></i> -->
 											<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">

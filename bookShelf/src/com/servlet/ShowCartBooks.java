@@ -52,8 +52,8 @@ public class ShowCartBooks extends HttpServlet {
 		}		
 		request.setAttribute("records", records);
 		request.setAttribute("total", total);
-		request.setAttribute("visibility", total.compareTo(new BigDecimal(0)) == 0 ? "hidden" : "show");
-		request.setAttribute("emptycart", total.compareTo(new BigDecimal(0)) == 0 ? "show" : "hidden");
+		request.setAttribute("visibility", records.size() == 0 ? "hidden" : "show");
+		request.setAttribute("emptycart", records.size() == 0 ? "show" : "hidden");
 		
 		request.getRequestDispatcher("/cart.jsp").forward(request, response);
 	}

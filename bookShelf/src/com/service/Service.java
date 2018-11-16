@@ -1,5 +1,6 @@
 package com.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.bean.BookBean;
@@ -16,4 +17,7 @@ public interface Service {
 	int addLikeBook(int userID, int bookID);
 	boolean removeLikeBook(int userID, int bookID);
 	int addCartBook(int userID, int bookID);
+	Page findBookPageRecordsByOwnerID(String num, int ownerid);
+	boolean delBook(int userID, int bookID);
+	boolean updateBook(int bookid, String name, BigDecimal price, String ISBN, String courseCode, String desc);
 }

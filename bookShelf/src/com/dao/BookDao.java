@@ -25,4 +25,9 @@ public interface BookDao {
 	public int getTotalRecordsNumByISBN(String keyWords);
 	public int getTotalRecordsNumByCourseCode(String keyWords);
 	public int checkout(int userID, BigDecimal total, String bookIDs) throws SQLException;
+	public List<BookBean> findPageRecordsByOwnerID(int startIndex, int pageSize, int ownerID);
+	public int getTotalRecordsNumByOwnerID(int ownerID);
+	public boolean delBook(int userID, int bookID);
+	public boolean updateBook(int bookID, String name, BigDecimal price, String ISBN, String courseCode, String desc);
+	
 }

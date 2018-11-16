@@ -15,6 +15,117 @@ import com.dao.BookDao;
 import com.util.DBconn;
 
 public class BookDaoImpl implements BookDao {
+	
+
+	@Override
+	public boolean updateBook(int bookID, String name, BigDecimal price, String ISBN, String courseCode, String desc) {
+		
+		boolean flag = false;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		String sql = "UPDATE book SET name=?, price=?, ISBN=?, coursecode=?, description=?  WHERE id=?;";
+
+		try {
+			conn = DBconn.getConnection();
+			ps =  conn.prepareStatement(sql);
+			ps.setString(1, name);
+			ps.setBigDecimal(2, price);
+			ps.setString(3, ISBN);
+			ps.setString(4, courseCode);
+			ps.setString(5, desc);
+			ps.setInt(6, bookID);
+			int i =  ps.executeUpdate();
+			if(i>0){
+				flag = true;
+			}
+		}catch (SQLException e) {
+			System.out.println("Update book error");
+			e.printStackTrace();
+		}finally {
+    		DBconn.close(null, ps, conn);
+    	}
+		return flag;
+	}
+	
+	
+	@Override
+	public boolean delBook(int userID, int bookID) {
+		boolean flag = false;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		String sql = "DELETE FROM book WHERE ownerid=? and id=? ;";
+		try {
+			conn = DBconn.getConnection();
+			ps =  conn.prepareStatement(sql);
+			ps.setInt(1, userID);
+			ps.setInt(2, bookID);
+			int i =  ps.executeUpdate();
+			if(i>0){
+				flag = true;
+			}
+		}catch (SQLException e) {
+			System.out.println("delete book error");
+			e.printStackTrace();
+		}finally {
+    		DBconn.close(null, ps, conn);
+    	}
+		return flag;
+	}
+	
+	@Override
+	public int getTotalRecordsNumByOwnerID(int ownerID) {
+		Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int num = 0;
+        try {
+        	conn = DBconn.getConnection();
+        	ps = conn.prepareStatement("select count(*) from book where ownerid= ? ");
+        	ps.setInt(1, ownerID);
+            rs=ps.executeQuery();
+            rs.next();
+            num = rs.getInt(1);
+        }catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+    		DBconn.close(rs, ps, conn);
+    	}
+		return num;
+	}
+	@Override
+	public List<BookBean> findPageRecordsByOwnerID(int startIndex, int pageSize, int ownerID) {
+		List<BookBean> list = new ArrayList<BookBean>();
+		Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+        	conn = DBconn.getConnection();
+        	ps = conn.prepareStatement("select * from book where ownerid=? limit ?,?"); 
+        	ps.setInt(1, ownerID); 
+            ps.setInt(2, startIndex);
+            ps.setInt(3, pageSize);
+            rs=ps.executeQuery();
+            while(rs.next()) {
+            	BookBean book = new BookBean();
+            	book.setId(rs.getInt("id"));
+            	book.setName(rs.getString("name"));
+            	book.setPrice(rs.getBigDecimal("price"));
+            	//book.setState(rs.getInt("state"));
+            	book.setISBN(rs.getString("ISBN"));
+            	book.setCourseCode(rs.getString("coursecode"));
+            	book.setPicturePath(rs.getString("picturepath"));
+            	book.setFilename(rs.getString("filename"));
+            	list.add(book);
+            }
+            return list;
+        }catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+    		DBconn.close(rs, ps, conn);
+    	}
+		return null;
+	}
+	
 	@Override
 	public int checkout(int userID, BigDecimal total,  String bookIDs) throws SQLException {
 

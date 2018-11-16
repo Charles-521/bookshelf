@@ -11,11 +11,7 @@
 		<div class="banner_inner d-flex align-items-center">
 			<div class="container">
 				<div class="banner_content text-center">
-					<h2>Shopping Cart</h2>
-					<div class="page_link">
-						<a href="index.jsp">Home</a>
-						<a href="showcart.html">Cart</a>
-					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -98,15 +94,38 @@
 								<td>
 
 								</td>
-								<td>
+									<td>
 
 								</td>
+								
 								<td>
 									<div class="checkout_btn_inner">
-										<a id="checkoutBtn" class="main_btn" href="#">Proceed to checkout</a>
+										<a id="checkoutBtn" class="main_btn" href="#">Proceed to Checkout</a>
 									</div>
 								</td>
 							</tr>
+							
+							<tr class="out_button_area" style>
+								<td style="border:none">
+
+								</td>
+								<td style="border:none">
+
+								</td>
+								
+									<td style="border:none">
+
+								</td>
+								<td style="border:none">
+								</td>								
+									<td style="border:none">
+										<div class="checkout_btn_inner">
+											<a id="backBtn" class="btn btn-link" href="showallbook.jsp">Continue Shopping</a>
+										</div>
+									</td>
+								</tr>
+							
+							
 						</tbody>
 					</table>
 				</div>

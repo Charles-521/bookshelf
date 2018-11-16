@@ -1,5 +1,6 @@
 package com.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.bean.BookBean;
@@ -11,6 +12,30 @@ import com.service.Service;
 public class ServiceImpl implements Service {
 	
 	private BookDao bookDao = new BookDaoImpl();
+	
+	@Override
+	public boolean updateBook(int bookID, String name, BigDecimal price, String ISBN, String courseCode, String desc) {
+		return bookDao.updateBook(bookID,  name,  price,  ISBN,  courseCode,  desc);
+	}
+	
+	@Override
+	public boolean delBook(int userID, int bookID) {
+		return bookDao.delBook(userID, bookID);
+	}
+	
+	@Override
+	public Page findBookPageRecordsByOwnerID(String num, int ownerid) {
+		int pageNum = 1;
+		if(num!=null&&!num.equals("")){
+			pageNum = Integer.parseInt(num);
+		}
+		int totalRecordsNum = bookDao.getTotalRecordsNumByOwnerID(ownerid);
+		Page page = new Page(pageNum, totalRecordsNum);
+		List<BookBean> records = bookDao.findPageRecordsByOwnerID(page.getStartIndex(), page.getPageSize(), ownerid);
+		page.setRecords(records);
+		return page;
+	}
+	
 	@Override
 	public Page findBookPageRecords(String num) {
 		int pageNum = 1;

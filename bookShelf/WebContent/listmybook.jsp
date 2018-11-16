@@ -1,124 +1,123 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="./common/header.jsp"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@include file="./common/header.jsp"%>
 <!DOCTYPE html>
-<html lang="en">
-
-
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
 <body>
-
-
+<head>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
 	<!--================Home Banner Area =================-->
 	<section class="banner_area">
 		<div class="banner_inner d-flex align-items-center">
 			<div class="container">
 				<div class="banner_content text-center">
-					
-					
+					<h2>Shop Category Page</h2>
+					<div class="page_link">
+						<a href="index.html">Home</a>
+						<a href="category.html">Category</a>
+						<a href="category.html">Women Fashion</a>
+					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 	<!--================End Home Banner Area =================-->
 
-	<!--================Order Details Area =================-->
-	<section class="order_details p_120">
-		<div class="container">
-			<h3 class="title_confirmation">Thank you. Your order has been received. <a id="backBtn" class="btn btn-link" href="showallbook.jsp">Continue Shopping</a></h3>
-			<div class="row order_d_inner">
-				<div class="col-lg-12">
-					<div class="details_item">
-						<h4>Order Info</h4>
-						<ul class="list">
-							<li>
-								<a href="#">
-									<span>Order No.</span> : ${orderNo} </a>
-							</li>
-							<li>
-								<a href="#">
-									<span>Order Date</span> : ${orderDate} </a>
-							</li>
-						</ul>
+	<!--================Category Product Area =================-->
+	<section class="cat_product_area section_gap">
+		<div class="container-fluid">
+			<div class="row flex-row-reverse">
+				<div class="col-lg-9">
+					<div class="product_top_bar">
+						<div style="">
+						    <form class="bs-example bs-example-form" role="form" action="FindBookPages" method="get">
+								 <div class="row">
+								            <div class="form-inline">
+								                <input type="text" class="form-control" placeholder="key words" name="keywords"/>
+								             	    <select name="keywordstype" style="width:111px;height:32px" >
+													<option value="ISBN">ISBN</option>
+													<option value="Name">Name</option>
+													<option value="Coursecode">Course Code</option>
+													</select>
+								                <button class="btn btn-primary" type="submit">search</button>
+								            </div>
+								 </div>
+						    </form>
+						</div>
+					</div>
+					<div class="latest_product_inner row">					
+					<c:forEach items="${page.records}" var="b" varStatus="vs">	
+						<div class="col-lg-3 col-md-3 col-sm-6">
+							<div class="f_p_item">
+								<div class="f_p_img">
+									<a href="single-product.jsp?id=${b.id}"><img class="img-fluid" src="${pageContext.request.contextPath}/images/${b.picturePath}/${b.filename}"  style="width:450px;height:300px;"></a>
+									<div class="p_icon">
+										<a href="DelBook?bookID=${b.id}&url=ShowAccountServlet?num=${page.pageNum}">
+											<i class="lnr lnr-trash"></i>
+										</a>
+										<a href="updatebook.jsp?bookID=${b.id}&url=ShowAccountServlet?num=${page.pageNum}">
+											<i class="lnr lnr-pencil"></i>
+										</a>
+									</div>
+								</div>
+								<a href="single-product.jsp?id=${b.id}">
+									<h4>${b.name}</h4>
+								</a>
+								<h5>$${b.price}</h5>
+							</div>
+						</div>
+					</c:forEach> 
+					</div>
+					<div class="product_top_bar">
+						<div class="right_page ml-auto" >	
+							<ul class="pager">
+							<li><a href="${pageContext.request.contextPath}${page.url}?num=${page.prePageNum}">Previous</a></li>
+							<li><a href="${pageContext.request.contextPath}${page.url}?num=${page.nextPageNum}">Next</a></li>
+							</ul>
+						</div> 
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="left_sidebar_area">
+						<aside class="left_widgets cat_widgets">
+							<div class="l_w_title">
+								<h3>Browse Categories</h3>
+							</div>
+							<div class="widgets_inner">
+								<ul class="list">
+										<li>
+										<a href="index.jsp">Home</a>
+									</li>
+									<li>
+										<a href="showallbook.jsp">View Book</a>
+									</li>
+											<li>
+												<a href="uploadbook.jsp">Upload Book</a>
+											</li>
+											<li>
+												<a href="likebook.jsp">favorite Books</a>
+											</li>
+											<li>
+												<a href="showcart.jsp">View Cart</a>
+											</li>
+								</ul>
+							</div>
+						</aside>
 					</div>
 				</div>
 			</div>
-			<div class="order_details_table">
-				<h2>Order Details</h2>
-				<div class="table-responsive">
-				<!--================Cart Area =================-->
-	<section class="cart_area">
-		<div class="container">
-			<div class="cart_inner">
-				<div class="table-responsive">
-					<table class="table">
-						<thead>
-							<tr>
-								<th scope="col">Product</th>
-								<th scope="col"></th>
-								<th scope="col">Contact</th>
-								<th scope="col">Original Price ($)</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${records}" var="b" varStatus="vs">
-							<tr>
-								<td>
-									<div class="media">
-									 	<input type="hidden" name="bookID" value="${b.bookID}">
-										<div class="d-flex ">
-											<img class="img-size" src="${pageContext.request.contextPath}/images/${b.picturePath}/${b.filename}" alt="">
-										</div>
-										<div class="media-body">
-											<p>${b.name}</p>
-										</div>
-									</div>
-								</td>								
-							<td>
-									<div class="product_count">
-
-									</div>
-								</td>
-								<td>
-										<div class="media-body">
-											<p>${b.phoneNumber}</p>
-										</div>
-								</td> 
-								<td>
-									<div class="media-body">
-										<p>${b.price}</p>
-									</div>
-								</td>
-							</tr>
-							</c:forEach>
-
-							<tr>
-								<td>
-
-								</td>
-								<td>
-
-								</td>
-								<td>
-									<h5>Total</h5>
-								</td>
-								<td>
-									<h5>${total}</h5>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
 		</div>
 	</section>
-	<!--================End Cart Area =================-->
-
-				</div>
-			</div>
-		</div>
-	</section>
-	<!--================End Order Details Area =================-->
+	<!--================End Category Product Area =================-->
 
 	<!--================ Subscription Area ================-->
 	<section class="subscription-area section_gap">
@@ -261,7 +260,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="vendors/jquery-ui/jquery-ui.js"></script>
 	<script src="vendors/counter-up/jquery.waypoints.min.js"></script>
 	<script src="vendors/counter-up/jquery.counterup.js"></script>
-	<script src="js/theme.js"></script>
-</body>
 
+</body>
 </html>

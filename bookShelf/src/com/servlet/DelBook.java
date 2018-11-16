@@ -1,7 +1,7 @@
 package com.servlet;
 
 import java.io.IOException;
-import java.math.BigDecimal;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,24 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bean.Page;
 import com.dao.UserDao;
 import com.dao.impl.UserDaoImpl;
 import com.service.Service;
 import com.service.impl.ServiceImpl;
-import com.util.AuthUtil;
 
 /**
- * Servlet implementation class ShowFavoriteBooks
+ * Servlet implementation class DelBook
  */
-@WebServlet("/ShowFavoriteBooks")
-public class ShowFavoriteBooks extends HttpServlet {
+@WebServlet("/DelBook")
+public class DelBook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShowFavoriteBooks() {
+    public DelBook() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +32,28 @@ public class ShowFavoriteBooks extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (!AuthUtil.IsLogin(request)) return;
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		Service s= new ServiceImpl();	
 		UserDao user= new UserDaoImpl();
-		
-		String num = request.getParameter("num");
 		String name = (String) request.getSession().getAttribute("name");
-		int userID = user.findIdByName(name);
-		Page page = s.findFavoriteBooks(num, userID);
-		page.setUrl("/ShowFavoriteBooks");
-		request.setAttribute("page", page);
-		request.setAttribute("visibility", page.getRecords().size() == 0 ? "hidden" : "show");
-		request.setAttribute("emptylist", page.getRecords().size() == 0 ? "show" : "hidden");
 		
-		request.getRequestDispatcher("/favoritebooks.jsp").forward(request, response);
+		String id = request.getParameter("bookID");
+		String url = request.getParameter("url");
+		int bookID = 0;
+		if(id!=null&&!id.equals("")){
+			bookID = Integer.parseInt(id);
+		}
+		int userID = user.findIdByName(name);
+		System.out.println(userID+""+bookID);
+		boolean rs = s.delBook(userID, bookID);
+		PrintWriter out = response.getWriter();
+		if (!rs) {
+			out.printf("<script language='javascript'>alert('Fail to delete!');window.location.href='%s';</script>", url); 
+			return;
+		}
+		
+		out.printf("<script language='javascript'>alert('Delete book successfully!');window.location.href='%s';</script>", url); 
 	}
 
 	/**
@@ -58,6 +63,5 @@ public class ShowFavoriteBooks extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 
 }
