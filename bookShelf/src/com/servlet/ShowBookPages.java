@@ -36,7 +36,7 @@ public class ShowBookPages extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		Service s= new ServiceImpl();
-		String num = request.getParameter("num");//用户要看的页码		
+		String num = request.getParameter("num");
 		Page page = s.findBookPageRecords(num);
 		page.setUrl("/ShowBookPages");
 		request.setAttribute("page", page);
@@ -49,18 +49,7 @@ public class ShowBookPages extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-/*		Service s= new ServiceImpl();
-		String num = request.getParameter("num");//用户要看的页码
-		
-		Page page = s.findBookPageRecords(num);
-		List a = page.getRecords();
-		for(int i =0;i<a.size();i++) {
-			BookBean test = (BookBean) a.get(i);
-			System.out.println(test.getName());
-		}
-		page.setUrl("/showPage");
-		request.setAttribute("page", page);
-		request.getRequestDispatcher("/listbooks.jsp").forward(request, response);*/
+
 	}
 
 }

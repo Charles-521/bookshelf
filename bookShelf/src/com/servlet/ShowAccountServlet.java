@@ -37,11 +37,11 @@ public class ShowAccountServlet extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Service s= new ServiceImpl();
-		String num = request.getParameter("num");//�û�Ҫ����ҳ��
+		String num = request.getParameter("num");
 		BookDao bookDao = new BookDaoImpl();
 		UserDao user= new UserDaoImpl();
 		String name = (String) request.getSession().getAttribute("name");
-		PrintWriter out = response.getWriter();//��ʼ��out����
+		PrintWriter out = response.getWriter();
 		if(name==null||name.equals("")){
 			out.print("<script language='javascript'>alert('Please Login First!');window.location.href='login.jsp';</script>"); 
 		}else {
@@ -52,14 +52,7 @@ public class ShowAccountServlet extends HttpServlet {
 		totalRecordsNum = bookDao.getTotalRecordsNumByOwnerID(ownerID);
 		page = s.findBookPageRecordsByOwnerID(num,ownerID);
 		
-		//------------------------
-			//	Service s= new ServiceImpl();
-		//		String num = request.getParameter("num");//�û�Ҫ����ҳ��		
-			//	Page page = s.findBookPageRecordsByOwnerID(num);
-			//	page.setUrl("/ShowBookPages");
-			//	request.setAttribute("page", page);
-			//	request.getRequestDispatcher("/listbook.jsp").forward(request, response);
-		//----------------------------------
+		
 		System.out.println(totalRecordsNum);
 		if (totalRecordsNum!=0) {
 			page.setUrl("/ShowAccountServlet");

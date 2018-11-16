@@ -17,7 +17,7 @@ import com.dao.impl.UserDaoImpl;
 public class test {
 
 	public static void main(String[] args) throws ParseException {
-		// 测试所写方法是否能能实现
+		// 
 /*		OrderDao order = new OrderDaoImpl();
 		List<OrderBean> list = order.findOrderByBuyerID(1);
 		for(int i =0;i<list.size();i++) {
@@ -31,11 +31,10 @@ public class test {
 /*		Date day=new Date();    
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 		System.out.println(df.format(day)); */
-/*		Date today = new Date();     //获取当前系统时间
+/*		Date today = new Date();    
 		System.out.println(today);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		  
-		  //将当前日期转换成指定日期格式输出
 		String day =sdf.format(today);
 		System.out.println(day);*/
 /*		BookDao book = new BookDaoImpl();
@@ -80,9 +79,9 @@ public class test {
 		boolean i = user.login("b","b");
 		System.out.println(i);
 		user.update(13,"bin","1","13213");*/
-/*		public boolean login(String name,String pwd);//登录
-		public boolean register(UserBean user);//注册
-		public boolean update(int id,String name, String pwd,String phoneNum) ;//更新
+/*		public boolean login(String name,String pwd);
+		public boolean register(UserBean user);
+		public boolean update(int id,String name, String pwd,String phoneNum);
 */	}
 
 }

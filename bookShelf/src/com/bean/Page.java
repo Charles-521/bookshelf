@@ -3,25 +3,24 @@ package com.bean;
 import java.util.List;
 public class Page {
 	private List records;
-	private int pageNum;//当前页码
-	private int totalPageNum;//总页码
-	private int prePageNum;//上一页
-	private int nextPageNum;//下一页
+	private int pageNum;
+	private int totalPageNum;
+	private int prePageNum;
+	private int nextPageNum;
 	
-	private int pageSize=8;//每页显示的记录条数
-	private int totalRecordsNum;//总记录条数
+	private int pageSize=8;
+	private int totalRecordsNum;
 	
-	private int startIndex;//每页开始记录的索引
+	private int startIndex;
 	
-	private String url;//查询分页的请求的地址
+	private String url;
 
 	public Page(int pageNum,int totalRecordsNum){
 		this.pageNum = pageNum;
 		this.totalRecordsNum = totalRecordsNum;
 		
-		//计算总页码
 		totalPageNum = totalRecordsNum%pageSize==0?totalRecordsNum/pageSize:(totalRecordsNum/pageSize+1);
-		//计算开始记录的索引
+
 		startIndex = (pageNum-1)*pageSize;
 	}
 	

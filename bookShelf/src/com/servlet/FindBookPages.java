@@ -36,10 +36,10 @@ public class FindBookPages extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Service s= new ServiceImpl();
 		BookDao bookDao = new BookDaoImpl();
-		String keyWordsType = request.getParameter("keywordstype");//搜索的类型
+		String keyWordsType = request.getParameter("keywordstype");
 		String keyWords = request.getParameter("keywords");
 		System.out.println(keyWords);
-		PrintWriter out = response.getWriter();//初始化out对象
+		PrintWriter out = response.getWriter();
 		Page page = null;
 		int totalRecordsNum = 0;
 		if(keyWordsType.equals("ISBN")){

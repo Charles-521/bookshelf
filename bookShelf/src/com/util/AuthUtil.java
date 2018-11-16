@@ -1,7 +1,13 @@
 package com.util;
+
 import javax.servlet.http.HttpServletRequest;
 
+
+
+
+
 public final class  AuthUtil {
+	
 	public static boolean IsLogin(HttpServletRequest r) {
 		if (r==null || r.getSession() == null) {
 			return false;
@@ -12,4 +18,7 @@ public final class  AuthUtil {
 		}
 		return true;		
 	}
+	
 }
+
+

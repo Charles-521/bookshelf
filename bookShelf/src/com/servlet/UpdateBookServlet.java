@@ -59,7 +59,7 @@ public class UpdateBookServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		UserDao user= new UserDaoImpl();
-		PrintWriter out = response.getWriter();//��ʼ��out����
+		PrintWriter out = response.getWriter();
 		int owenrid = 0;
 		String name = (String) request.getSession().getAttribute("name");
 		//System.out.println(name);
