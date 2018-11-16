@@ -1,4 +1,5 @@
 /target/
+.settings/
 WebContent/fblogin.jsp
 src/com/bean/FacebookUser.java
 src/com/servlet/FBLoginServlet.java
