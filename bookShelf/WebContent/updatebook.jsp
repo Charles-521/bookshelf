@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
+<% String msg = request.getParameter("msg"); %>
     <!--================Home Banner Area =================-->
     <section class="banner_area">
         <div class="banner_inner d-flex align-items-center">
@@ -37,19 +38,19 @@
                 <form class="row tracking_form" method="post" enctype="multipart/form-data" action="UpdateBookServlet?bookID=<%= id %>&url=<%= url %>" novalidate="novalidate">
                   
                     <div class="col-md-12 form-group">
-                        <input type="text" class="form-control" id="name" name="name" value=<%=book.getName() %>>
+                        <input type="text" class="form-control" id="name" name="name" value="<%=book.getName() %>">
                     </div>
                     <div class="col-md-12 form-group">
-                        <input type="text" class="form-control" id="price" name="price" value=<%=book.getPrice() %>>
+                        <input type="text" class="form-control" id="price" name="price" value="<%=book.getPrice() %>">
                     </div>
                     <div class="col-md-12 form-group">
-                        <input type="text" class="form-control" id="ISBN" name="ISBN" value=<%=book.getISBN() %>>
+                        <input type="text" class="form-control" id="ISBN" name="ISBN" value="<%=book.getISBN() %>">
                     </div>
                     <div class="col-md-12 form-group">
-                        <input type="text" class="form-control" id="courseCode" name="courseCode" value=<%=book.getCourseCode() %> >
+                        <input type="text" class="form-control" id="courseCode" name="courseCode" value="<%=book.getCourseCode() %>" >
                     </div>
                     <div class="col-md-12 form-group">
-                        <input type="text" class="form-control" id="description" name="description" value=<%=book.getDescription() %> >
+                        <input type="text" class="form-control" id="description" name="description" value="<%=book.getDescription() %>" >
                     </div>
                      <!--<div class="col-md-12 form-group">
                         <input rows="3" type="file" class="form-control" id="file" name="file"  placeholder="--remain unchanged--" onchange="fileChange(this);">
@@ -154,6 +155,23 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         </div>
     </footer>
     <!--================ End footer Area  =================-->
+    <!-- Modal -->
+	<div id="msgbox" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="msgbox" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header row" style="padding: 0px; margin:0">
+	      	<div class="col-lg-12"><i class="lnr lnr-warning"></i></div>
+	       <!--  <h3 class="modal-title" style="color:white"></h3>    -->     
+	      </div>
+	      	<div class="modal-body " style="margin: 0;">
+	        	<h4><%= msg %> </h4>
+	        	<input type="hidden" value="<%=  msg %>" id="msg" />
+	      	</div>      
+	    </div>
+	  </div>
+	</div>
+	<!-- Modal -->
+    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="js/jquery-3.2.1.min.js"></script>
@@ -171,6 +189,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="vendors/counter-up/jquery.waypoints.min.js"></script>
     <script src="vendors/counter-up/jquery.counterup.js"></script>
     <script src="js/theme.js"></script>
+    <script>
+		$(document).ready(function() {
+			if($('#msg').val() === 'undefined' 
+					|| $('#msg').val() == 'null'
+					|| $('#msg').val() === '')
+				return;
+			$('#msgbox').modal('toggle');
+		})
+	</script>
     <script type="text/javascript" >
 	function fileChange(target) {
 		  var fileSize = 0;         

@@ -63,15 +63,15 @@ public class AddLikeBooks extends HttpServlet {
 		int rs = s.addLikeBook(userID, bookID);
 		PrintWriter out = response.getWriter();
 		if (rs == 2) {
-			out.printf("<script language='javascript'>alert('It must be your favorite book!');window.location.href='%s';</script>", url); 
+			out.printf("<script language='javascript'>window.location.href='%s';</script>", url + "&msg=This book has been added to favorite"); 
 			return;
 		}
 		if (rs == 3) {
-			out.printf("<script language='javascript'>alert('Fail to add to favorite!');window.location.href='%s';</script>", url); 
+			out.printf("<script language='javascript'>window.location.href='%s';</script>", url + "&msg=Fail to add to favorite books"); 
 			return;
 		}
 		
-		out.printf("<script language='javascript'>alert('Add to favorite  book successfully!');window.location.href='%s';</script>", url); 
+		out.printf("<script language='javascript'>window.location.href='%s';</script>", url + "&msg=Add to favorite  book successfully"); 
 
 	}
 

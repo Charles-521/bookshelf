@@ -6,6 +6,7 @@
 
 <html lang="en">
 <body>
+<% String msg = request.getParameter("msg"); %>
 	<!--================Home Banner Area =================-->
 	<section class="banner_area">
 		<div class="banner_inner d-flex align-items-center">
@@ -34,6 +35,7 @@
 								<th scope="col"></th>
 								<th scope="col">Contact</th>
 								<th scope="col">Original Price ($)</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -66,6 +68,13 @@
 										<p>${b.price}</p>
 									</div>
 								</td>
+								<td>
+								<div class="p_icon">
+										<a href="RemoveCartBook?bookID=${b.id}&url=showcart.jsp">
+											<i class="lnr lnr-trash"></i>
+										</a>
+									</div>
+								</td>
 							</tr>
 							</c:forEach>
 
@@ -82,6 +91,7 @@
 								<td>
 									<h5>${total}</h5>
 								</td>
+								<td></td>
 							</tr>
 
 							<tr class="out_button_area">
@@ -256,7 +266,22 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</footer>
 	<!--================ End footer Area  =================-->
 
-
+<!-- Modal -->
+	<div id="msgbox" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="msgbox" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header row" style="padding: 0px; margin:0">
+	      	<div class="col-lg-12"><i class="lnr lnr-warning"></i></div>
+	       <!--  <h3 class="modal-title" style="color:white"></h3>    -->     
+	      </div>
+	      	<div class="modal-body " style="margin: 0;">
+	        	<h4><%= msg %> </h4>
+	        	<input type="hidden" value="<%=  msg %>" id="msg" />
+	      	</div>      
+	    </div>
+	  </div>
+	</div>
+	<!-- Modal -->
 
 
 	<!-- Optional JavaScript -->
@@ -305,6 +330,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	   	});
    })
    	</script>
+   	<script>
+		$(document).ready(function() {
+			if($('#msg').val() === 'undefined' 
+					|| $('#msg').val() == 'null'
+					|| $('#msg').val() === '')
+				return;
+			$('#msgbox').modal('toggle');
+		})
+	</script>
 </body>
 
 </html>

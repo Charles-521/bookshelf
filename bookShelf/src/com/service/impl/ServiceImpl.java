@@ -113,8 +113,12 @@ public class ServiceImpl implements Service {
 	
 	@Override
 	public boolean removeLikeBook(int userID, int bookID) {
-		return bookDao.removeLikeBook(userID, bookID);
-		
+		return bookDao.removeLikeBook(userID, bookID);		
+	}
+	
+	@Override
+	public boolean removeCartBook(int userID, int bookID) {
+		return bookDao.removeCartBook(userID, bookID);		
 	}
 	
 	@Override

@@ -49,11 +49,11 @@ public class DelBook extends HttpServlet {
 		boolean rs = s.delBook(userID, bookID);
 		PrintWriter out = response.getWriter();
 		if (!rs) {
-			out.printf("<script language='javascript'>alert('Fail to delete!');window.location.href='%s';</script>", url); 
+			out.printf("<script language='javascript'>window.location.href='%s';</script>", url + "?msg=Fail to delete!"); 
 			return;
 		}
 		
-		out.printf("<script language='javascript'>alert('Delete book successfully!');window.location.href='%s';</script>", url); 
+		out.printf("<script language='javascript'>window.location.href='%s';</script>", url); 
 	}
 
 	/**

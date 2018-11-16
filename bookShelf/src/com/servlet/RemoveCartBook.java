@@ -16,16 +16,16 @@ import com.service.impl.ServiceImpl;
 import com.util.AuthUtil;
 
 /**
- * Servlet implementation class RemoveLikeBooks
+ * Servlet implementation class RemoveCartBook
  */
-@WebServlet("/RemoveLikeBooks")
-public class RemoveLikeBooks extends HttpServlet {
+@WebServlet("/RemoveCartBook")
+public class RemoveCartBook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RemoveLikeBooks() {
+    public RemoveCartBook() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,15 +46,16 @@ public class RemoveLikeBooks extends HttpServlet {
 			bookID = Integer.parseInt(id);
 		}
 		int userID = user.findIdByName(name);
-		boolean rs = s.removeLikeBook(userID, bookID);
+		boolean rs = s.removeCartBook(userID, bookID);
 		PrintWriter out = response.getWriter();
 		if (!rs) {
-			out.printf("<script language='javascript'>window.location.href='%s';</script>", url + "?msg=Fail to remove to favorite!" ); 
+			out.printf("<script language='javascript'>window.location.href='%s';</script>", url + "?msg=Fail to remove from cart!" ); 
 			return;
 		}
 		
 		out.printf("<script language='javascript'>window.location.href='%s';</script>", url); 
 
+	
 	}
 
 	/**

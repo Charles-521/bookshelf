@@ -10,6 +10,7 @@ public interface BookDao {
 	public boolean addBook(BookBean bookBean);
 	public int addLikeBook(int userID, int bookID);
 	public boolean removeLikeBook(int userID, int bookID);
+	public boolean removeCartBook(int userID, int bookID);
 	public int addCartBook(int userID, int bookID);
 	public List<BookBean> findLikeBookByUserID(int userID);
 	public List<BookBean> findCartBookByUserID(int userID);

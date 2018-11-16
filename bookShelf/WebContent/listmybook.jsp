@@ -15,6 +15,7 @@
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<% String msg = request.getParameter("msg"); %>
 	<!--================Home Banner Area =================-->
 	<section class="banner_area">
 		<div class="banner_inner d-flex align-items-center">
@@ -240,7 +241,22 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</div>
 	</footer>
 	<!--================ End footer Area  =================-->
-
+	<!-- Modal -->
+	<div id="msgbox" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="msgbox" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header row" style="padding: 0px; margin:0">
+	      	<div class="col-lg-12"><i class="lnr lnr-warning"></i></div>
+	       <!--  <h3 class="modal-title" style="color:white"></h3>    -->     
+	      </div>
+	      	<div class="modal-body " style="margin: 0;">
+	        	<h4><%= msg %> </h4>
+	        	<input type="hidden" value="<%=  msg %>" id="msg" />
+	      	</div>      
+	    </div>
+	  </div>
+	</div>
+	<!-- Modal -->
 
 
 
@@ -260,6 +276,14 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="vendors/jquery-ui/jquery-ui.js"></script>
 	<script src="vendors/counter-up/jquery.waypoints.min.js"></script>
 	<script src="vendors/counter-up/jquery.counterup.js"></script>
-
+	   	<script>
+		$(document).ready(function() {
+			if($('#msg').val() === 'undefined' 
+					|| $('#msg').val() == 'null'
+					|| $('#msg').val() === '')
+				return;
+			$('#msgbox').modal('toggle');
+		})
+	</script>
 </body>
 </html>

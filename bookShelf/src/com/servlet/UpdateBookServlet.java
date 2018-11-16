@@ -62,7 +62,7 @@ public class UpdateBookServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		int owenrid = 0;
 		String name = (String) request.getSession().getAttribute("name");
-		//System.out.println(name);
+		
 		if(name==null||name.equals("")){
 			out.print("<script language='javascript'>alert('Please Login First!');window.location.href='login.jsp';</script>"); 
 		}else {
@@ -87,16 +87,15 @@ public class UpdateBookServlet extends HttpServlet {
 			
 		}
         int bookId = Integer.valueOf(request.getParameter("bookID"));
-        //Service s= new ServiceImpl();
         Service s= new ServiceImpl();	
         String url = request.getParameter("url");
 		
 		boolean rs = s.updateBook(bookId, book.getName(), book.getPrice(), book.getISBN(), book.getCourseCode(), book.getDescription());
 		if (!rs) {
-			out.printf("<script language='javascript'>alert('Fail to update!');window.location.href='%s';</script>", url); 
+			out.printf("<script language='javascript'>window.location.href='%s';</script>", url + "?msg=Fail to update"); 
 			return;
 		}
-		out.printf("<script language='javascript'>alert('Update book successfully!');window.location.href='%s';</script>", url);
+		out.printf("<script language='javascript'>window.location.href='%s';</script>", url);
      }
 	
 	private void processFormFiled(FileItem item, BookBean book) {

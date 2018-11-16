@@ -270,6 +270,30 @@ public class BookDaoImpl implements BookDao {
 		return flag;
 	}
 	
+	@Override	
+	public boolean removeCartBook(int userID, int bookID) {
+		boolean flag = false;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		String sql = "delete from cart where bookID=? and userID=?";
+		try {
+			conn = DBconn.getConnection();
+			ps =  conn.prepareStatement(sql);
+			ps.setInt(1, bookID);
+			ps.setInt(2, userID);
+			int i =  ps.executeUpdate();
+			if(i>0){
+				flag = true;
+			}
+		}catch (SQLException e) {
+			System.out.println("remove cart book error");
+			e.printStackTrace();
+		}finally {
+    		DBconn.close(null, ps, conn);
+    	}
+		return flag;
+	}
+	
 	@Override
 	public int addCartBook(int userID, int bookID) {
 		int flag = 3;
@@ -830,6 +854,4 @@ public class BookDaoImpl implements BookDao {
     	}
 		return null;
 	}
-
-
 }

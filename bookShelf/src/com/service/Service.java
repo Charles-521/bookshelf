@@ -20,4 +20,5 @@ public interface Service {
 	Page findBookPageRecordsByOwnerID(String num, int ownerid);
 	boolean delBook(int userID, int bookID);
 	boolean updateBook(int bookid, String name, BigDecimal price, String ISBN, String courseCode, String desc);
+	boolean removeCartBook(int userID, int bookID);
 }

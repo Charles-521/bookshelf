@@ -49,7 +49,7 @@ public class ShowCartBooks extends HttpServlet {
 		BigDecimal total = new BigDecimal(0);
 		for (int i = 0; i < records.size(); i++) {
 			total = total.add(records.get(i).getPrice());
-		}		
+		}
 		request.setAttribute("records", records);
 		request.setAttribute("total", total);
 		request.setAttribute("visibility", records.size() == 0 ? "hidden" : "show");

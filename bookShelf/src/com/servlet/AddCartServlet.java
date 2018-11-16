@@ -61,15 +61,15 @@ public class AddCartServlet extends HttpServlet {
 		int rs = s.addCartBook(userID, bookID);
 		PrintWriter out = response.getWriter();
 		if (rs == 2) {
-			out.printf("<script language='javascript'>alert('It must be your favorite book!');window.location.href='%s';</script>", url); 
+			out.printf("<script language='javascript'>window.location.href='%s';</script>", url + "&msg=This book has been added"); 
 			return;
 		}
 		if (rs == 3) {
-			out.printf("<script language='javascript'>alert('Fail to add to cart!');window.location.href='%s';</script>", url); 
+			out.printf("<script language='javascript'>window.location.href='%s';</script>", url + "&msg=Fail to add to cart!"); 
 			return;
 		}
 		
-		out.printf("<script language='javascript'>alert('Add to cart successfully!');window.location.href='%s';</script>", url); 
+		out.printf("<script language='javascript'>window.location.href='%s';</script>", url + "&msg=Add to cart successfully"); 
 	}
 
 	/**
