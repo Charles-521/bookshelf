@@ -54,6 +54,41 @@ Table of Content:
 
 /*---------------------------------------------------- */
 /*----------------------------------------------------*/
+.book_list_gap{
+	padding-top:0px !important;
+}
+.search_inline {
+	padding:5px;
+}
+.search_drop {
+	width:111px;
+	height: 37px;
+}
+
+.banner_area .banner_inner {
+	top:-100px;
+
+	}
+	.cart_area {
+	padding-top: 0px;
+	}
+.pager li>a, .pager li>span {
+    display: inline-block;
+    padding: 5px 14px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+}
+
+.pager li {
+    display: inline;
+}
+
+a {
+    color: #337ab7;
+    text-decoration: none;
+}
+
 .modal-header {
     padding:9px 15px;
     border-bottom:1px solid #eee;
@@ -3521,7 +3556,7 @@ h6 {
 /* Cart Area css
 ============================================================================================ */
 .cart_area {
-  padding-top: 100px;
+  padding-top: 0px;
   padding-bottom: 100px; }
 
 .cart_inner .table thead tr th {

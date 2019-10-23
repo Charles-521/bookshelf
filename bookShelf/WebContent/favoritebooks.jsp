@@ -8,10 +8,8 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 
-	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
-	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<style>
+
+	<!-- <style>
 	.autoheight {
 		height:auto !important;
 	}
@@ -19,7 +17,7 @@
 		padding:0 !important;
 	}
 	
-	</style>
+	</style> -->
 </head>
 
 
@@ -46,19 +44,16 @@
 		</section>
 	<!--================Category Product Area =================-->
 	
-	<section class="cat_product_area section_gap ${visibility}">
+	<section class="cat_product_area section_gap ${visibility}" style="padding-top: 0;">
 		<div class="container-fluid">
-			<div class="row ">
-				<div class="col-lg-10 offset-lg-1">
-					<div class="product_top_bar">
-						<div style="">
-						    <form class="bs-example bs-example-form" role="form" action="FindBookPages" method="get">
-								 <div class="row">
-								            
-								 </div>
-						    </form>
+				<div class="row ">
+					<div class="col-lg-10 offset-lg-1">
+						<div class="row">
+							<div class="lg-col-2 offset-lg-5">
+								<h2>Favorite Books</h3>
+							</div>
 						</div>
-					</div>
+						<br/>					
 					<div class="latest_product_inner row">					
 					<c:forEach items="${page.records}" var="b" varStatus="vs">	
 						<div class="col-lg-3 col-md-3 col-sm-6">

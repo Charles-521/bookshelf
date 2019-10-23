@@ -30,7 +30,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="icon" href="img/favicon.png" type="image/png">
-	<title>Fashiop</title>
+	<title>BookShelf</title>
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<link rel="stylesheet" href="vendors/linericon/style.css">
@@ -46,16 +46,16 @@
 
 </head>
 
-<body>
+<body style="background: #F7F4EF;">
 
 		<!--================Header Menu Area =================-->
 	<header class="header_area">
-		<div class="top_menu row m0">
+		<div class="top_menu row m0" style="background: #F7F4EF;">
 			<div class="container-fluid">
 				<div class="float-left">											
 					<%-- <p>Hi. ${username} </p> --%>
 					<% if  (request.getSession().getAttribute("name")==null) {%>
-					<p>Hi. </p> 
+					<p>Welcome, Guest! </p> 
 					<% }else {%>
  					<p>Hi. <%=request.getSession().getAttribute("name") %></p> 
  					<% }%>
@@ -63,9 +63,15 @@
 				<div class="float-right">
 					<ul class="right_side">
 						<li>
+						<% if  (request.getSession().getAttribute("name")==null) {%>
 							<a href="login.jsp">
 								Login/Register
 							</a>
+							<% }else {%>
+							<a href="LogoutServlet">
+								Logout
+							</a>
+							<% }%>
 						</li>
 						<li>
 							<a href="ShowAccountServlet">
@@ -73,7 +79,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="contact.html">
+							<a href="contact.jsp">
 								Contact Us
 							</a>
 						</li>
@@ -82,11 +88,11 @@
 			</div>
 		</div>
 		<div class="main_menu">
-			<nav class="navbar navbar-expand-lg navbar-light">
+			<nav class="navbar navbar-expand-lg navbar-light" style="background: #F7F4EF;">
 				<div class="container-fluid">
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<a class="autoheight navbar-brand logo_h" href="index.jsp">
-						<img src="img/logo.png" alt="">
+						<img style="width:70px" src="img/logo.png" alt="">
 					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 					 aria-expanded="false" aria-label="Toggle navigation">
@@ -114,25 +120,10 @@
 											
 										</ul>
 										</li>
-										<!-- <li class="nav-item submenu dropdown">
-											<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
-											<ul class="dropdown-menu">
-												<li class="nav-item">
-													<a class="nav-link" href="blog.html">Blog</a>
-												</li>
-												<li class="nav-item">
-													<a class="nav-link" href="single-blog.html">Blog Details</a>
-												</li>
-											</ul>
-										</li> -->
+										
 										<li class="nav-item submenu dropdown">
 											<a href="showcart.jsp" class="nav-link dropdown-toggle"   aria-haspopup="true" aria-expanded="false">Cart</a>
-											<!-- <ul class="dropdown-menu">
-												<li class="nav-item">
-													<a class="nav-link" href="showcart.jsp">View Cart</a>
-													<li class="nav-item">
-													
-											</ul> -->
+											
 											</li>
 											
 								</ul>
@@ -140,20 +131,14 @@
 
 							<div class="col-lg-5">
 								<ul class="nav navbar-nav navbar-right right_nav pull-right">
-									<hr>
-									<li class="nav-item">
-										<a href="#" class="nopadding icons">
-											<i class="fa fa-search" aria-hidden="true"></i>
-											<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-										</a>
-									</li>
+																	
 
 									<hr>
 
 									<li class="nav-item">
 										<a href="ShowAccountServlet" class="nopadding icons">
-											<i class="fa fa-user" aria-hidden="true"></i>
-											<!-- <i class="lnr lnr lnr-user" aria-hidden="true"></i> -->
+											<!-- <i class="fa fa-user" aria-hidden="true"></i> -->
+											<i class="lnr lnr lnr-user" aria-hidden="true"></i> 
 											<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 										</a>
 									</li>
@@ -172,6 +157,18 @@
 									<li class="nav-item">
 										<a href="showcart.jsp" class="nopadding icons">
 											<i class="lnr lnr lnr-cart"></i>
+										</a>
+									</li>
+									
+									<li class="nav-item">
+										<a href="GetOrdersServlet" class="nopadding icons">
+											<i class="lnr lnr lnr-briefcase"></i>
+										</a>
+									</li>
+									
+									<li class="nav-item">
+										<a href="GetSellsServlet" class="nopadding icons">
+											<i class="lnr lnr lnr-diamond"></i>
 										</a>
 									</li>
 

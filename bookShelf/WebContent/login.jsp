@@ -8,7 +8,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="icon" href="img/favicon.png" type="image/png">
-	<title>Fashiop</title>
+	<title>BookShelf</title>
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<link rel="stylesheet" href="vendors/linericon/style.css">
@@ -23,11 +23,11 @@
 	<link rel="stylesheet" href="css/responsive.css">
 </head>
 
-<body>
+<body  style="background: #F7F4EF;">
 
 	<!--================Header Menu Area =================-->
 	<header class="header_area">
-		<div class="top_menu row m0">
+		<div class="top_menu row m0" style="background: #F7F4EF;">
 			<div class="container-fluid">
 				<div class="float-left">											
 					<%-- <p>Hi. ${username} </p> --%>
@@ -59,11 +59,11 @@
 			</div>
 		</div>
 		<div class="main_menu">
-			<nav class="navbar navbar-expand-lg navbar-light">
+			<nav class="navbar navbar-expand-lg navbar-light"  style="background: #F7F4EF;">
 				<div class="container-fluid">
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<a class="navbar-brand logo_h" href="index.jsp">
-						<img src="img/logo.png" alt="">
+						<img style="width:70px" src="img/logo.png" alt="">
 					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 					 aria-expanded="false" aria-label="Toggle navigation">
@@ -120,7 +120,7 @@
 									<hr>
 									<li class="nav-item">
 										<a href="#" class="icons">
-											<i class="fa fa-search" aria-hidden="true"></i>
+											<i class="lnr lnr-search" aria-hidden="true"></i>
 											<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 										</a>
 									</li>
@@ -129,8 +129,7 @@
 
 									<li class="nav-item">
 										<a href="#" class="icons">
-											<i class="fa fa-user" aria-hidden="true"></i>
-											<!-- <i class="lnr lnr lnr-user" aria-hidden="true"></i> -->
+											<i class="lnr lnr lnr-user" aria-hidden="true"></i>
 											<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 										</a>
 									</li>
@@ -166,15 +165,7 @@
 	<!--================Home Banner Area =================-->
 	<section class="banner_area">
 		<div class="banner_inner d-flex align-items-center">
-			<div class="container">
-				<div class="banner_content text-center">
-					<h2>Login/Register</h2>
-					<div class="page_link">
-						<a href="index.jsp">Home</a>
-						<a href="login.jsp">Login</a>
-					</div>
-				</div>
-			</div>
+			
 		</div>
 	</section>
 	<!--================End Home Banner Area =================-->

@@ -12,11 +12,102 @@ import java.util.List;
 
 import com.bean.BookBean;
 import com.bean.OrderBean;
+import com.bean.OrderDetailBean;
 import com.bean.OrderInfo;
 import com.dao.OrderDao;
 import com.util.DBconn;
 
 public class OrderDaoImpl implements OrderDao {
+	
+	@Override
+	public List<OrderBean> findSellOrderByUserID(int userID){
+		List<OrderBean> list = new ArrayList<OrderBean>();
+		Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+        	conn = DBconn.getConnection();
+        	ps = conn.prepareStatement("select * from userorder uo, userinfo ui where uo.buyerId=ui.id and buyerId = ?");
+        	ps.setInt(1, userID);
+            rs=ps.executeQuery();
+            while(rs.next()) {
+            	OrderBean order = new OrderBean();
+            	order.setId(rs.getInt("id"));
+            	order.setBuyerName(rs.getString("ui.name"));
+            	order.setPayment(rs.getBigDecimal("payment"));
+            	order.setOrderNo(rs.getString("orderNo"));
+            	order.setCreateDate(rs.getString("createDate"));
+            	list.add(order);
+            }
+            return list;
+        }catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+    		DBconn.close(rs, ps, conn);
+    	}
+		return null;
+	}
+	
+	@Override
+	public List<OrderBean> findBuyOrderByUserID(int userID){
+		List<OrderBean> list = new ArrayList<OrderBean>();
+		Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+        	conn = DBconn.getConnection();
+        	ps = conn.prepareStatement("select * from userorder where buyerId = ?");
+        	ps.setInt(1, userID);
+            rs=ps.executeQuery();
+            while(rs.next()) {
+            	OrderBean order = new OrderBean();
+            	order.setId(rs.getInt("id"));
+            	order.setBuyerID(rs.getInt("buyerId"));
+            	order.setPayment(rs.getBigDecimal("payment"));
+            	order.setOrderNo(rs.getString("orderNo"));
+            	order.setCreateDate(rs.getString("createDate"));
+            	list.add(order);
+            }
+            return list;
+        }catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+    		DBconn.close(rs, ps, conn);
+    	}
+		return null;
+	}
+	
+	@Override
+	public List<OrderDetailBean> findBuyOrderDetailsByUserID(int userID){
+		
+		List<OrderDetailBean> list = new ArrayList<OrderDetailBean>();
+		Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+        	conn = DBconn.getConnection();
+        	ps = conn.prepareStatement("select u.phonenumber, od.*, b.* from orderdetail od, userorder uo, book b, userinfo u where u.id=b.ownerid and b.id=od.bookID and uo.id=od.orderID and uo.buyerId = ?");
+        	ps.setInt(1, userID);
+            rs=ps.executeQuery();
+            while(rs.next()) {
+            	OrderDetailBean order = new OrderDetailBean();
+            	order.setId(rs.getInt("od.id"));
+            	order.setOrderID(rs.getInt("od.orderID"));
+            	order.setName(rs.getString("b.name"));
+            	order.setPrice(rs.getBigDecimal("b.price"));
+            	order.setPrice(rs.getBigDecimal("b.price"));
+            	order.setPhoneNumber(rs.getString("u.phonenumber"));
+            	list.add(order);
+            }
+            return list;
+        }catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+    		DBconn.close(rs, ps, conn);
+    	}
+		return null;
+		
+	}
 
 	@Override
 	public boolean createOrder(int buyerID, float payment) {
@@ -49,7 +140,7 @@ public class OrderDaoImpl implements OrderDao {
 
 	@Override
 	public List<OrderBean> findOrderByBuyerID(int buyerID) {
-		// TODO Auto-generated method stub
+		
 		List<OrderBean> list = new ArrayList<OrderBean>();
 		Connection conn = null;
         PreparedStatement ps = null;
@@ -63,7 +154,7 @@ public class OrderDaoImpl implements OrderDao {
             	OrderBean order = new OrderBean();
             	order.setId(rs.getInt("id"));
             	order.setBuyerID(rs.getInt("buyerId"));
-            	order.setPayment(rs.getFloat("payment"));
+            	order.setPayment(rs.getBigDecimal("payment"));
             	order.setCreateDate(rs.getString("createDate"));
             	list.add(order);
             }

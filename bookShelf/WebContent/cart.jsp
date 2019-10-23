@@ -29,6 +29,12 @@
 			<div class="cart_inner">
 				<div class="table-responsive">
 					<table class="table">
+					<div class="row">
+							<div class="lg-col-2 offset-lg-5">
+								<h2>Shopping Cart</h3>
+							</div>
+						</div>
+						<br/>
 						<thead>
 							<tr>
 								<th scope="col">Product</th>
@@ -162,9 +168,6 @@
 						 method="get" class="subscription relative">
 							<input type="email" name="EMAIL" placeholder="Email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email address'"
 							 required>
-							<!-- <div style="position: absolute; left: -5000px;">
-									<input type="text" name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="">
-								</div> -->
 							<button type="submit" class="newsl-btn">Get Started</button>
 							<div class="info"></div>
 						</form>

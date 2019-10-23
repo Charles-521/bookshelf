@@ -5,9 +5,13 @@ import java.sql.*;
 
 
 public class DBconn {
-	static String url = "jdbc:mysql://ec2-52-77-0-56.ap-southeast-1.compute.amazonaws.com:3306/bookshelf?useunicode=true&characterEncoding=utf8"; 
-	static String username = "bookshelf"; 
-	static String password = "bookshelf123!"; 
+//	static String url = "jdbc:mysql://ec2-52-77-0-56.ap-southeast-1.compute.amazonaws.com:3306/bookshelf?useunicode=true&characterEncoding=utf8"; 
+//	static String username = "bookshelf"; 
+//	static String password = "bookshelf123!"; 
+	
+	static String url = "jdbc:mysql://localhost:3306/bookshelf?useunicode=true&characterEncoding=utf8"; 
+	static String username = "root"; 
+	static String password = "root"; 
 	static Connection  conn = null;
 	static ResultSet rs = null;
 	static PreparedStatement ps =null;

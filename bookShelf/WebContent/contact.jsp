@@ -1,64 +1,59 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="./common/header.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
+
+
 <body>
+
+
 	<!--================Home Banner Area =================-->
-	<section class="banner_area">
-		<div class="banner_inner d-flex align-items-center">
-			<div class="container">
-				
-			</div>
-		</div>
-	</section>
+	
 	<!--================End Home Banner Area =================-->
 
-	<!--================Login Box Area =================-->
-	<section class="login_box_area p_120">
-		<div class="container">
+	<!--================Order Details Area =================-->
+	<section class="order_details p_120" style="padding:200px 0px 800px 0px">
+		<div class="container">			
 			<div class="row">
-				<div class="col-lg-6">
-					<div class="login_box_img">
-						<img class="img-fluid" src="img/login.jpg" alt="">
-						<div class="hover">
-							<h4>New to our website?</h4>
-							<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-							<a class="main_btn" href="#">Create an Account</a>
-						</div>
+				<div class="col-lg-4 offset-lg-4"><h1 style="font-size:100px"><b>Q & A</b></h1></div>
+				<div class="col-lg-4 offset-lg-4"><h1 style="font-size:60px"><b>Thank you !</b></h1></div>
+			</div>			
+		</div>
+	</section>
+	<!--================End Order Details Area =================-->
+
+	<!--================ Subscription Area ================-->
+	<section class="subscription-area section_gap">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-8">
+					<div class="section-title text-center">
+						<h2>Subscribe for Our Newsletter</h2>
+						<span>We won’t send any kind of spam</span>
 					</div>
 				</div>
+			</div>
+			<div class="row justify-content-center">
 				<div class="col-lg-6">
-					<div class="login_form_inner reg_form">
-						<h3>Create an Account</h3>
-						<div class="row login_form"  method="post" id="registerForm" novalidate="novalidate" >
-							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Name">
-							</div>
-							<div id="showmessage" ></div> 
-							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="phonenumber" name="phonenumber" placeholder="Phone Number">
-							</div>
-							<div class="col-md-12 form-group">
-								<input type="email" class="form-control" id="email" name="email" placeholder="Email Address">
-							</div>
-							<div class="col-md-12 form-group">
-								<input type="password" class="form-control" id="password" name="password" placeholder="Password">
-							</div>
-							<div class="col-md-12 form-group">
-								<input type="password" class="form-control" id="pass" name="pass" placeholder="Confirm password">
-							</div>
-							<div style="padding:0 0 15px 15px; color:red" id="demo1"></div>
-							<div class="col-md-12 form-group">
-								<button  value="submit" class="btn submit_btn">Register</button>
-							</div>
-						</div>
+					<div id="mc_embed_signup">
+						<form target="_blank" novalidate action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&id=92a4423d01"
+						 method="get" class="subscription relative">
+							<input type="email" name="EMAIL" placeholder="Email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email address'"
+							 required="">
+							<!-- <div style="position: absolute; left: -5000px;">
+									<input type="text" name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="">
+								</div> -->
+							<button type="submit" class="newsl-btn">Get Started</button>
+							<div class="info"></div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	<!--================End Login Box Area =================-->
+	<!--================ End Subscription Area ================-->
 
 	<!--================ start footer Area  =================-->
 	<footer class="footer-area section_gap">
@@ -171,45 +166,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="vendors/counter-up/jquery.waypoints.min.js"></script>
 	<script src="vendors/counter-up/jquery.counterup.js"></script>
 	<script src="js/theme.js"></script>
-		<script type="text/javascript" >
-   /* 	/servlet/Test2 */
-   $(".submit_btn").on("click", function(){
-	   var username=$("#name").val();
-	   var phonenumber = $("#phonenumber").val();
-	   var email = $("#email").val();
-	   var password = $("#password").val();
-	   var pass=$("#pass").val();
-	   if (username == "" ||phonenumber==""|| email== ""|| password ==""||pass=="")
-		   $("#demo1").text("Please fill in all the information!");
-	   else if (!/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/.test(email))
-		   $("#demo1").text("Incorrect email format!");
-	   else if (!/^\d{8}$/.test(phonenumber))
-		   $("#demo1").text("Incorrect phone number format!");
-	   else if (password!=pass)
-		   $("#demo1").text("The two passwords do not match!");
-	   else{
-	  		$.ajax({
-			    url:'RegisterServlet',
-			    type:'POST', //GET
-			    async:true,    //或false,是否异步
-			    data:{
-			        name:username,password:password,email:email,phonenumber:phonenumber//想要传输过去的数据 key：value，另一个页面通过 key接收value的值
-			    },
-			    dataType:'text',    //返回的数据格式：json/xml/html/script/jsonp/text
-			    success:function(data){//data是成功后，接收的返回值
-			    	if(data == "1"){
-			    			alert("Registered successfully!");
-			    			window.location.href = "login.jsp"	  
-			    		}  		
-			    	else
-			    		//alert("Error");
-			    		document.getElementById("demo1").innerHTML = "Name is already used! ";
-			    }
-		   	});
-	   }
- 
-   })
-   	</script>
-
+</body>
 
 </html>

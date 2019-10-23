@@ -13,14 +13,7 @@
 	<section class="banner_area">
 		<div class="banner_inner d-flex align-items-center">
 			<div class="container">
-				<div class="banner_content text-center">
-					<h2>Single Product Page</h2>
-					<div class="page_link">
-						<a href="index.html">Home</a>
-						<a href="category.html">Category</a>
-						<a href="single-product.html">Product Details</a>
-					</div>
-				</div>
+				
 			</div>
 		</div>
 	</section>
@@ -31,6 +24,7 @@
 		<%
 		BookDao bookDao = new BookDaoImpl();
 		BookBean book = bookDao.findBookById(Integer.valueOf(request.getParameter("id")));
+		String hide = request.getParameter("hide");
     			 %>
 		<div class="container">
 			<div class="row s_product_inner">
@@ -61,7 +55,7 @@
 							</li>
 						</ul>
 						<p><span>Description</span> :  <%=book.getDescription() %></p>
-						<div class="card_area">
+						<div class="card_area <%=request.getParameter("hide")%>">
 							<form class="row tracking_form" method="post" enctype="multipart/form-data" action="AddCartServlet?bookID=<%=book.getId() %>&url=single-product.jsp?id=<%=book.getId()%>" novalidate="novalidate">
 								<input class="main_btn" type="submit" value="Add to Cart" />
 							</form>
@@ -79,39 +73,6 @@
 		</div>
 	</div>
 	<!--================End Single Product Area =================-->
-
-	
-
-	<!--================ Subscription Area ================-->
-<!-- 	<section class="subscription-area section_gap">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-lg-8">
-					<div class="section-title text-center">
-						<h2>Subscribe for Our Newsletter</h2>
-						<span>We won’t send any kind of spam</span>
-					</div>
-				</div>
-			</div>
-			<div class="row justify-content-center">
-				<div class="col-lg-6">
-					<div id="mc_embed_signup">
-						<form target="_blank" novalidate action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&id=92a4423d01"
-						 method="get" class="subscription relative">
-							<input type="email" name="EMAIL" placeholder="Email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email address'"
-							 required="">
-							<div style="position: absolute; left: -5000px;">
-									<input type="text" name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="">
-								</div>
-							<button type="submit" class="newsl-btn">Get Started</button>
-							<div class="info"></div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section> -->
-	<!--================ End Subscription Area ================-->
 
 	<!--================ start footer Area  =================-->
 	<footer class="footer-area section_gap">

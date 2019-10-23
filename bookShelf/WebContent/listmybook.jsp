@@ -9,47 +9,55 @@
 <title>Insert title here</title>
 </head>
 <body>
-<head>
+<!-- <head>
 	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
 	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
+</head> -->
 <body>
 <% String msg = request.getParameter("msg"); %>
 	<!--================Home Banner Area =================-->
 	<section class="banner_area">
 		<div class="banner_inner d-flex align-items-center">
 			<div class="container">
-				<div class="banner_content text-center">
-					<h2>Shop Category Page</h2>
-					<div class="page_link">
-						<a href="index.html">Home</a>
-						<a href="category.html">Category</a>
-						<a href="category.html">Women Fashion</a>
-					</div>
-				</div>
+				
 			</div>
 		</div>
 	</section>
 	<!--================End Home Banner Area =================-->
-
+<div class="row">
+							<div class="lg-col-2 offset-lg-5">
+								<h2>Manage Books</h3>
+							</div>
+						</div>
+						<br/>
 	<!--================Category Product Area =================-->
-	<section class="cat_product_area section_gap">
+	<section class="cat_product_area section_gap book_list_gap" >
+		
 		<div class="container-fluid">
-			<div class="row flex-row-reverse">
-				<div class="col-lg-9">
+			<div class="row ">
+				<div class="col-lg-10 offset-lg-1">
 					<div class="product_top_bar">
 						<div style="">
 						    <form class="bs-example bs-example-form" role="form" action="FindBookPages" method="get">
 								 <div class="row">
-								            <div class="form-inline">
+								             <div class="form-inline search_inline">
 								                <input type="text" class="form-control" placeholder="key words" name="keywords"/>
-								             	    <select name="keywordstype" style="width:111px;height:32px" >
+								             	   
+								                
+								            </div>
+								            
+								            <div class="form-inline search_inline">
+								                
+								             	    <select name="keywordstype" class="search_drop" >
 													<option value="ISBN">ISBN</option>
 													<option value="Name">Name</option>
 													<option value="Coursecode">Course Code</option>
 													</select>
-								                <button class="btn btn-primary" type="submit">search</button>
+								                
+								            </div>
+								            <div class="form-inline search_inline">
+								            	<button class="btn btn-primary" type="submit">search</button>
 								            </div>
 								 </div>
 						    </form>
@@ -60,7 +68,7 @@
 						<div class="col-lg-3 col-md-3 col-sm-6">
 							<div class="f_p_item">
 								<div class="f_p_img">
-									<a href="single-product.jsp?id=${b.id}"><img class="img-fluid" src="${pageContext.request.contextPath}/images/${b.picturePath}/${b.filename}"  style="width:450px;height:300px;"></a>
+									<a href="single-product.jsp?id=${b.id}&hide=hidden"><img class="img-fluid" src="${pageContext.request.contextPath}/images/${b.picturePath}/${b.filename}"  style="width:450px;height:300px;"></a>
 									<div class="p_icon">
 										<a href="DelBook?bookID=${b.id}&url=ShowAccountServlet?num=${page.pageNum}">
 											<i class="lnr lnr-trash"></i>
@@ -87,7 +95,7 @@
 						</div> 
 					</div>
 				</div>
-				<div class="col-lg-3">
+				<!-- <div class="col-lg-3">
 					<div class="left_sidebar_area">
 						<aside class="left_widgets cat_widgets">
 							<div class="l_w_title">
@@ -114,7 +122,7 @@
 							</div>
 						</aside>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</section>
